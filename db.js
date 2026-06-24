@@ -8,6 +8,7 @@ const DB_PATH = path.join(DB_DIR, 'db.json');
 let dbCache = null;
 let isSaving = false;
 let needsSave = false;
+let initPromise = null;
 
 const FIREBASE_URL = process.env.FIREBASE_URL;
 
@@ -75,50 +76,57 @@ function writeDb(data) {
 
 // Initialize database (Async for cloud support)
 async function initDb() {
-    if (FIREBASE_URL) {
-        console.log('Connecting to Firebase Realtime Database...');
-        try {
-            const response = await fetch(FIREBASE_URL);
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.users && data.submissions) {
-                    dbCache = data;
-                    console.log('✅ Loaded database from Firebase successfully.');
-                    return;
+    if (dbCache) return;
+    if (initPromise) return initPromise;
+
+    initPromise = (async () => {
+        if (FIREBASE_URL) {
+            console.log('Connecting to Firebase Realtime Database...');
+            try {
+                const response = await fetch(FIREBASE_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.users && data.submissions) {
+                        dbCache = data;
+                        console.log('✅ Loaded database from Firebase successfully.');
+                        return;
+                    }
                 }
+                console.log('⚠️ Firebase database empty or invalid, initializing defaults.');
+            } catch (error) {
+                console.error('Error connecting to Firebase, falling back to local file:', error);
             }
-            console.log('⚠️ Firebase database empty or invalid, initializing defaults.');
-        } catch (error) {
-            console.error('Error connecting to Firebase, falling back to local file:', error);
         }
-    }
 
-    if (fs.existsSync(DB_PATH)) {
-        try {
-            const data = fs.readFileSync(DB_PATH, 'utf8');
-            dbCache = JSON.parse(data);
-            console.log('✅ Loaded database from local db.json.');
-            return;
-        } catch (e) {
-            console.error('Error loading local db.json:', e);
-        }
-    }
-
-    dbCache = {
-        users: [
-            {
-                id: 'admin_default',
-                name: 'مدير النظام',
-                passcode: 'admin123',
-                department: 'إدارة النظام',
-                section: 'القسم الأمني',
-                role: 'admin'
+        if (fs.existsSync(DB_PATH)) {
+            try {
+                const data = fs.readFileSync(DB_PATH, 'utf8');
+                dbCache = JSON.parse(data);
+                console.log('✅ Loaded database from local db.json.');
+                return;
+            } catch (e) {
+                console.error('Error loading local db.json:', e);
             }
-        ],
-        submissions: []
-    };
-    writeDb(dbCache);
-    console.log('✅ Initialized default database.');
+        }
+
+        dbCache = {
+            users: [
+                {
+                    id: 'admin_default',
+                    name: 'مدير النظام',
+                    passcode: 'admin123',
+                    department: 'إدارة النظام',
+                    section: 'القسم الأمني',
+                    role: 'admin'
+                }
+            ],
+            submissions: []
+        };
+        writeDb(dbCache);
+        console.log('✅ Initialized default database.');
+    })();
+
+    return initPromise;
 }
 
 // User operations

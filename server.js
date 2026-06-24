@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const exceljs = require('exceljs');
@@ -16,14 +16,21 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use(session({
-    secret: 'security-permits-key-2026-secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { 
-        maxAge: 24 * 60 * 60 * 1000,
-        secure: false
-    }
+    name: 'session',
+    keys: ['security-permits-key-2026-secret'],
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
+// Middleware to ensure database is loaded (critical for serverless like Vercel)
+app.use(async (req, res, next) => {
+    try {
+        await db.initDb();
+        next();
+    } catch (err) {
+        console.error('Failed to initialize database on request:', err);
+        res.status(500).send('خطأ في الاتصال بقاعدة البيانات');
+    }
+});
 
 // Route protection rules for static files
 app.get('/', (req, res) => {
@@ -87,12 +94,8 @@ app.post('/api/login', (req, res) => {
 
 // Logout
 app.post('/api/logout', (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            return res.status(500).json({ error: 'خطأ في تسجيل الخروج' });
-        }
-        res.json({ success: true });
-    });
+    req.session = null;
+    res.json({ success: true });
 });
 
 // Check Session
@@ -1096,15 +1099,19 @@ app.get('/api/export/employee/cumulative/excel', async (req, res) => {
 });
 
 // Start Server
-async function startServer() {
-    try {
-        await db.initDb();
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
-    } catch (err) {
-        console.error('Failed to initialize database on startup:', err);
-        process.exit(1);
+if (!process.env.VERCEL) {
+    async function startServer() {
+        try {
+            await db.initDb();
+            app.listen(PORT, () => {
+                console.log(`Server is running on port ${PORT}`);
+            });
+        } catch (err) {
+            console.error('Failed to initialize database on startup:', err);
+            process.exit(1);
+        }
     }
+    startServer();
 }
-startServer();
+
+module.exports = app;

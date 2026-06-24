@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "cookie-session": "^2.1.0",
     "docx": "^9.7.1",
     "exceljs": "^4.4.0",
     "express": "^5.2.1",
