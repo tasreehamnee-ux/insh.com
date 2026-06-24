@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - قسم التصاريح الأمنية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Tahoma', sans-serif;
+        }
+
+        :root {
+            --primary: #1e3c72;
+            --primary-light: #2a5298;
+            --secondary: #764ba2;
+            --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #764ba2 100%);
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --success: #2ec4b6;
+            --danger: #e71d36;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            color: var(--gray-800);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation Header */
+        .nav-header {
+            background: var(--bg-gradient);
+            color: var(--white);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-header .user-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Main Layout */
+        .dashboard-container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Common Card Styles */
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .card-title {
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gray-200);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Form Controls */
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .stat-card h3 {
+            font-size: 15px;
+            color: var(--gray-600);
+            margin-bottom: 5px;
+        }
+
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Contributors list styling */
+        .contributors-list {
+            list-style: none;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .contributor-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+
+        .contributor-item:hover {
+            background: var(--gray-100);
+        }
+
+        .contributor-item.active {
+            background: rgba(30, 60, 114, 0.1);
+            border-right: 4px solid var(--primary);
+            font-weight: bold;
+        }
+
+        .contributor-badge {
+            background: var(--primary-light);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+
+        /* Submissions Panel */
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            background: var(--gray-100);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .filter-bar .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-bar label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .export-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            justify-content: flex-end;
+            border-top: 2px solid var(--gray-200);
+            padding-top: 20px;
+        }
+
+        /* Form Styled Block Container (Matches original design exactly) */
+        .form-block-container {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .form-block-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .form-block-header h2 {
+            font-size: 22px;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .form-block-header .banner-title {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .form-block-header .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: bold;
+        }
+
+        .form-block-header .meta-info {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .form-block-content {
+            padding: 25px;
+        }
+
+        /* Form styled tables */
+        .form-styled-table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .form-styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            direction: rtl;
+            background: var(--white);
+        }
+
+        .form-styled-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #1e3c72;
+            font-size: 13px;
+        }
+
+        .form-styled-table td {
+            border: 2px solid #dee2e6;
+            padding: 8px;
+            text-align: center;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .form-styled-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Notification toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 3000;
+        }
+
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+    </style>
+</head>
+<body>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Top Navigation -->
+    <header class="nav-header">
+        <h1>⚙️ لوحة تحكم المسؤول - قسم التصاريح الأمنية</h1>
+        <div class="user-info">
+            <span class="user-badge" id="adminName">مدير النظام</span>
+            <button class="logout-btn" onclick="logout()">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="dashboard-container">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>إجمالي الاستمارات المستلمة</h3>
+                    <div class="value" id="statsSubmissions">0</div>
+                </div>
+            </div>
+
+            <!-- Contributors List Card -->
+            <div class="card">
+                <div class="card-title">👥 الموظفون المساهمون</div>
+                <div style="margin-bottom: 10px; font-size: 12px; color: var(--gray-600);">
+                    انقر فوق اسم موظف لتصفيته مباشرة في الاستمارات.
+                </div>
+                <ul class="contributors-list" id="contributorsList">
+                    <!-- Contributors list injected dynamically -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Submissions Grouped Log Content -->
+        <section class="content">
+            <!-- Filter Panel -->
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="card-title" style="margin-bottom: 15px;">🔍 أدوات تصفية البيانات التراكمية</div>
+                <div class="filter-bar" style="margin-bottom: 0;">
+                    <div class="filter-group">
+                        <label>الموظف:</label>
+                        <select class="form-control" id="filterUser" onchange="filterUserSelected()">
+                            <option value="">كل الموظفين</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>الشهر:</label>
+                        <select class="form-control" id="filterMonth" onchange="fetchSubmissions()">
+                            <option value="">كل الأشهر</option>
+                            <option value="كانون الثاني">كانون الثاني</option>
+                            <option value="شباط">شباط</option>
+                            <option value="آذار">آذار</option>
+                            <option value="نيسان">نيسان</option>
+                            <option value="أيار">أيار</option>
+                            <option value="حزيران">حزيران</option>
+                            <option value="تموز">تموز</option>
+                            <option value="آب">آب</option>
+                            <option value="أيلول">أيلول</option>
+                            <option value="تشرين الأول">تشرين الأول</option>
+                            <option value="تشرين الثاني">تشرين الثاني</option>
+                            <option value="كانون الأول">كانون الأول</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>المحافظة:</label>
+                        <select class="form-control" id="filterGov" onchange="fetchSubmissions()">
+                            <option value="">كل المحافظات</option>
+                            <option value="بغداد">بغداد</option>
+                            <option value="البصرة">البصرة</option>
+                            <option value="نينوى">نينوى</option>
+                            <option value="النجف">النجف</option>
+                            <option value="ذي قار">ذي قار</option>
+                            <option value="كركوك">كركوك</option>
+                            <option value="الأنبار">الأنبار</option>
+                            <option value="ديالى">ديالى</option>
+                            <option value="المثنى">المثنى</option>
+                            <option value="القادسية">القادسية</option>
+                            <option value="ميسان">ميسان</option>
+                            <option value="واسط">واسط</option>
+                            <option value="صلاح الدين">صلاح الدين</option>
+                            <option value="بابل">بابل</option>
+                            <option value="كربلاء">كربلاء</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cumulative Export Panel -->
+                <div class="export-controls">
+                    <div style="margin-left: auto; text-align: right; color: var(--gray-600); font-size: 13px;">
+                        💡 التصدير التراكمي يقوم بحفظ كافة السجلات المصفاة (مبوبة تلقائياً حسب المحافظات والترويسة) في ملف Excel أو Word منسق.
+                    </div>
+                    <button class="btn btn-success" onclick="exportCumulative('excel')">💾 تصدير Excel تراكمي</button>
+                    <button class="btn btn-primary" onclick="exportCumulative('word')">📄 تصدير Word تراكمي</button>
+                    <button class="btn btn-info" onclick="exportCumulativePDF()">📄 تصدير PDF تراكمي</button>
+                </div>
+            </div>
+
+            <!-- Grouped Tables Container -->
+            <div id="groupedTablesContainer">
+                <!-- Tables generated dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let allSubmissionsMaster = [];
+        let filteredSubmissionsList = [];
+
+        // Check auth and session
+        async function checkSession() {
+            try {
+                const response = await fetch('/api/session');
+                const session = await response.json();
+                if (!session.loggedIn || session.role !== 'admin') {
+                    window.location.href = '/login.html';
+                } else {
+                    document.getElementById('adminName').textContent = session.name || 'مدير النظام';
+                }
+            } catch (e) {
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+        }
+
+        // Fetch Dashboard Data (Unfiltered master copy)
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('/api/submissions');
+                allSubmissionsMaster = await response.json();
+                
+                if (!Array.isArray(allSubmissionsMaster)) {
+                    console.error('Expected array from submissions API, but got:', allSubmissionsMaster);
+                    document.getElementById('statsSubmissions').textContent = '0';
+                    return;
+                }
+                
+                document.getElementById('statsSubmissions').textContent = allSubmissionsMaster.length;
+
+                // Process unique contributors
+                const contributors = {};
+                allSubmissionsMaster.forEach(sub => {
+                    if (sub.userName) {
+                        contributors[sub.userName] = (contributors[sub.userName] || 0) + 1;
+                    }
+                });
+
+                // Update filterUser dropdown options
+                const filterUserDropdown = document.getElementById('filterUser');
+                const currentSelected = filterUserDropdown.value;
+                filterUserDropdown.innerHTML = '<option value="">كل الموظفين</option>';
+                
+                Object.keys(contributors).sort().forEach(name => {
+                    const opt = document.createElement('option');
+                    opt.value = name;
+                    opt.textContent = name;
+                    filterUserDropdown.appendChild(opt);
+                });
+                filterUserDropdown.value = currentSelected;
+
+                // Update sidebar list of contributors
+                const contList = document.getElementById('contributorsList');
+                contList.innerHTML = '';
+                
+                if (Object.keys(contributors).length === 0) {
+                    contList.innerHTML = '<li style="padding:15px; text-align:center; color:#888; font-size:13px;">لا يوجد مساهمون مسجلون بعد</li>';
+                }
+
+                Object.keys(contributors).sort().forEach(name => {
+                    const count = contributors[name];
+                    const li = document.createElement('li');
+                    li.className = 'contributor-item' + (currentSelected === name ? ' active' : '');
+                    li.innerHTML = `
+                        <span>${name}</span>
+                        <span class="contributor-badge">${count} استمارة</span>
+                    `;
+                    li.onclick = () => selectContributorFromSidebar(name);
+                    contList.appendChild(li);
+                });
+
+            } catch (e) {
+                console.error(e);
+                showToast('خطأ في تحميل إحصائيات لوحة التحكم', 'error');
+            }
+        }
+
+        // Click sidebar contributor
+        function selectContributorFromSidebar(name) {
+            const dropdown = document.getElementById('filterUser');
+            if (dropdown.value === name) {
+                dropdown.value = '';
+            } else {
+                dropdown.value = name;
+            }
+            filterUserSelected();
+        }
+
+        // Triggered when dropdown user changes
+        function filterUserSelected() {
+            const dropdown = document.getElementById('filterUser');
+            const selectedName = dropdown.value;
+            
+            const items = document.querySelectorAll('.contributor-item');
+            items.forEach(item => {
+                const nameSpan = item.querySelector('span').textContent;
+                if (nameSpan === selectedName) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            fetchSubmissions();
+        }
+
+        async function fetchSubmissions() {
+            const user = document.getElementById('filterUser').value;
+            const month = document.getElementById('filterMonth').value;
+            const governorate = document.getElementById('filterGov').value;
+
+            let query = `?user=${encodeURIComponent(user)}&month=${encodeURIComponent(month)}&governorate=${encodeURIComponent(governorate)}`;
+            
+            try {
+                const response = await fetch(`/api/submissions${query}`);
+                filteredSubmissionsList = await response.json();
+
+                const container = document.getElementById('groupedTablesContainer');
+                container.innerHTML = '';
+
+                if (!Array.isArray(filteredSubmissionsList)) {
+                    console.error('Expected array from submissions API, but got:', filteredSubmissionsList);
+                    container.innerHTML = '<div class="card" style="text-align:center; color:#888; padding:30px;">حدث خطأ في تحميل البيانات من الخادم أو انتهت صلاحية الجلسة. يرجى تحديث الصفحة.</div>';
+                    return;
+                }
+
+                if (filteredSubmissionsList.length === 0) {
+                    container.innerHTML = '<div class="card" style="text-align:center; color:#888; padding:30px;">لا توجد بيانات أنشطة مرسلة مطابقة لخيارات الفرز الحالية</div>';
+                    return;
+                }
+
+                // Group submissions by governorate and month
+                const groups = {};
+                filteredSubmissionsList.forEach(sub => {
+                    const key = `${sub.governorate || 'غير محدد'}_${sub.month || 'غير محدد'}`.replace(/\s+/g, '-');
+                    if (!groups[key]) {
+                        groups[key] = {
+                            governorate: sub.governorate || 'غير محدد',
+                            month: sub.month || 'غير محدد',
+                            contributors: [],
+                            rows: []
+                        };
+                    }
+                    if (!groups[key].contributors.some(c => c.id === sub.id)) {
+                        groups[key].contributors.push({
+                            id: sub.id,
+                            userName: sub.userName,
+                            date: sub.submissionDate
+                        });
+                    }
+                    if (sub.rows && Array.isArray(sub.rows)) {
+                        groups[key].rows = groups[key].rows.concat(sub.rows);
+                    }
+                });
+
+                // Deduplicate function
+                function deduplicateRows(rows) {
+                    const seen = new Set();
+                    return rows.filter(row => {
+                        const key = [
+                            (row.tasks || '').trim(),
+                            (row.employees || '').toString().trim(),
+                            (row.planned || '').toString().trim(),
+                            (row.completion || '').trim(),
+                            (row.section || '').trim(),
+                            (row.department || '').trim(),
+                            (row.beneficiary || '').trim(),
+                            (row.supporting || '').trim(),
+                            (row.date || '').trim()
+                        ].join('|||').toLowerCase();
+                        if (seen.has(key)) {
+                            return false;
+                        }
+                        seen.add(key);
+                        return true;
+                    });
+                }
+
+                // Render each group block
+                for (const key in groups) {
+                    const group = groups[key];
+                    const uniqueRows = deduplicateRows(group.rows);
+                    
+                    const block = document.createElement('div');
+                    block.className = 'form-block-container';
+                    const elementId = `block-${key}`;
+                    block.id = elementId;
+
+                    block.innerHTML = `
+                        <!-- Form Header Banner (matching index.html style exactly) -->
+                        <div class="form-block-header">
+                            <div class="banner-title">قسم التصاريح الأمنية</div>
+                            <div class="banner-title" style="font-size: 16px; font-weight: bold; margin-top: 2px;">شعبة المتابعة</div>
+                            <h2>استمارة الأنشطة الشهرية</h2>
+                            <div class="subtitle">محافظة (${group.governorate}) - لشهر (${group.month})</div>
+                        </div>
+                        
+                        <!-- Block Controls (no-pdf class prevents printing or canvas conversion) -->
+                        <div class="no-pdf" style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 20px; background:#f8f9fa; border-bottom:1px solid #ddd; flex-wrap:wrap;">
+                            <div style="font-size:13px; color:#555; text-align:right;">
+                                <strong style="color:#1e3c72;">📥 المساهمات (${group.contributors.length}):</strong>
+                                ${group.contributors.map(c => `
+                                    <span style="background:white; border:1px solid #ccc; padding:3px 8px; border-radius:15px; display:inline-flex; align-items:center; gap:5px; margin:2px;">
+                                        <span>${c.userName}</span>
+                                        <button onclick="deleteSubmission('${c.id}')" style="border:none; background:transparent; color:#e71d36; cursor:pointer; font-weight:bold; font-size:14px; padding:0 3px;" title="حذف هذه الاستمارة">🗑️</button>
+                                    </span>
+                                `).join('')}
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn btn-info" style="padding:6px 12px; font-size:12px;" onclick="exportBlockToPDF('${elementId}', '${group.governorate}', '${group.month}')">📄 PDF للمحافظة</button>
+                                <button class="btn btn-success" style="padding:6px 12px; font-size:12px; background:linear-gradient(135deg, #11998e 0%, #38ef7d 100%);" onclick="exportBlockToWord('${group.governorate}', '${group.month}')">📝 Word للمحافظة</button>
+                                <button class="btn btn-primary" style="padding:6px 12px; font-size:12px; background:linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);" onclick="exportBlockToExcel('${group.governorate}', '${group.month}')">📊 Excel للمحافظة</button>
+                            </div>
+                        </div>
+
+                        <div class="form-block-content">
+                            <div class="form-styled-table-container">
+                                <table class="form-styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 40px;">ت</th>
+                                            <th style="min-width: 250px;">المهام والواجبات</th>
+                                            <th>عدد الموظفين القائمين بالخدمة</th>
+                                            <th>عدد الأعمال ضمن الخطة</th>
+                                            <th>نسبة الإنجاز أو عدد المنجز</th>
+                                            <th>القسم</th>
+                                            <th>الشعبة</th>
+                                            <th>الجهة المستفيدة</th>
+                                            <th>الجهة الساندة</th>
+                                            <th>تاريخ التنفيذ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${uniqueRows.map((row, index) => `
+                                            <tr>
+                                                <td><strong>${index + 1}</strong></td>
+                                                <td style="text-align:right; max-width: 350px; word-wrap: break-word; white-space: pre-wrap;">${row.tasks || ''}</td>
+                                                <td>${row.employees || ''}</td>
+                                                <td>${row.planned || ''}</td>
+                                                <td>${row.completion || ''}</td>
+                                                <td>${row.section || ''}</td>
+                                                <td>${row.department || ''}</td>
+                                                <td>${row.beneficiary || ''}</td>
+                                                <td>${row.supporting || ''}</td>
+                                                <td style="white-space: nowrap;">${row.date || ''}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(block);
+                }
+
+            } catch (e) {
+                console.error(e);
+                showToast('خطأ في تحميل وفرز الاستمارات الواردة', 'error');
+            }
+        }
+
+        // Delete single submission
+        async function deleteSubmission(id) {
+            if (confirm('هل أنت متأكد من حذف هذه الاستمارة بالكامل؟ سيؤدي ذلك لحذف جميع الأنشطة المرفقة بها.')) {
+                try {
+                    const response = await fetch(`/api/submissions/${id}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        showToast('تم حذف الاستمارة بنجاح');
+                        await loadDashboardData();
+                        await fetchSubmissions();
+                    } else {
+                        showToast('خطأ في حذف الاستمارة', 'error');
+                    }
+                } catch (e) {
+                    showToast('خطأ في الاتصال بالخادم', 'error');
+                }
+            }
+        }
+
+        // Export Cumulative files
+        function exportCumulative(format) {
+            const user = document.getElementById('filterUser').value;
+            const month = document.getElementById('filterMonth').value;
+            const governorate = document.getElementById('filterGov').value;
+
+            let query = `?user=${encodeURIComponent(user)}&month=${encodeURIComponent(month)}&governorate=${encodeURIComponent(governorate)}`;
+            
+            if (format === 'excel') {
+                window.open(`/api/export/excel${query}`, '_blank');
+            } else if (format === 'word') {
+                window.open(`/api/export/word${query}`, '_blank');
+            }
+        }
+
+        // Export individual block Word/Excel
+        function exportBlockToWord(governorate, month) {
+            window.open(`/api/export/word?governorate=${encodeURIComponent(governorate)}&month=${encodeURIComponent(month)}`, '_blank');
+        }
+
+        function exportBlockToExcel(governorate, month) {
+            window.open(`/api/export/excel?governorate=${encodeURIComponent(governorate)}&month=${encodeURIComponent(month)}`, '_blank');
+        }
+
+        // Export individual block PDF
+        async function exportBlockToPDF(elementId, governorate, month) {
+            try {
+                showToast('⏳ جاري إعداد ملف PDF...', 'info');
+                const element = document.getElementById(elementId);
+                const noPdfElements = element.querySelectorAll('.no-pdf');
+                
+                // Hide controls
+                noPdfElements.forEach(el => el.style.display = 'none');
+                
+                const originalStyle = element.style.cssText;
+                element.style.cssText += 'width:1100px; padding:20px; background:white;';
+                
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff'
+                });
+                
+                // Restore styles
+                element.style.cssText = originalStyle;
+                noPdfElements.forEach(el => el.style.display = '');
+                
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10;
+                const availableWidth = pdfWidth - (margin * 2);
+                const availableHeight = pdfHeight - (margin * 2);
+                
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+                const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
+                
+                const imgX = margin + (availableWidth - imgWidth * ratio) / 2;
+                const imgY = margin;
+                
+                pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                pdf.save(`استمارة_${governorate}_${month}_تراكمي.pdf`);
+                showToast('✅ تم تحميل الـ PDF بنجاح');
+            } catch (err) {
+                console.error(err);
+                showToast('حدث خطأ أثناء تصدير PDF', 'error');
+            }
+        }
+
+        // Export all visible blocks to one cumulative PDF
+        async function exportCumulativePDF() {
+            const blocks = document.querySelectorAll('.form-block-container');
+            if (blocks.length === 0) {
+                showToast('لا توجد بيانات لتصديرها كـ PDF', 'error');
+                return;
+            }
+            
+            showToast('⏳ جاري إعداد ملف PDF التراكمي الموحد...', 'info');
+            
+            try {
+                const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10;
+                const availableWidth = pdfWidth - (margin * 2);
+                const availableHeight = pdfHeight - (margin * 2);
+                
+                for (let i = 0; i < blocks.length; i++) {
+                    if (i > 0) pdf.addPage();
+                    
+                    const element = blocks[i];
+                    const noPdfElements = element.querySelectorAll('.no-pdf');
+                    
+                    noPdfElements.forEach(el => el.style.display = 'none');
+                    
+                    const originalStyle = element.style.cssText;
+                    element.style.cssText += 'width:1100px; padding:20px; background:white;';
+                    
+                    const canvas = await html2canvas(element, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: '#ffffff'
+                    });
+                    
+                    element.style.cssText = originalStyle;
+                    noPdfElements.forEach(el => el.style.display = '');
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
+                    const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
+                    
+                    const imgX = margin + (availableWidth - imgWidth * ratio) / 2;
+                    const imgY = margin;
+                    
+                    pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                }
+                
+                pdf.save(`تقرير_تراكمي_مجمع_${Date.now()}.pdf`);
+                showToast('✅ تم تحميل تقرير PDF التراكمي الموحد بنجاح');
+            } catch (err) {
+                console.error(err);
+                showToast('حدث خطأ أثناء تصدير PDF التراكمي', 'error');
+            }
+        }
+
+        // Logout
+        async function logout() {
+            try {
+                const response = await fetch('/api/logout', { method: 'POST' });
+                if (response.ok) {
+                    window.location.href = '/login.html';
+                }
+            } catch (e) {
+                window.location.href = '/login.html';
+            }
+        }
+
+        // On Load
+        window.onload = async () => {
+            await checkSession();
+            await loadDashboardData();
+            await fetchSubmissions();
+            setInterval(loadDashboardData, 30000);
+        };
+    </script>
+</body>
+</html>

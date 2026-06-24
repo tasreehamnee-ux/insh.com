@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قسم التصاريح الأمنية - استمارة الانشطة الشهرية - استمارة إلكترونية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Arial', 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: right;
+        }
+
+        .control-group label {
+            font-weight: bold;
+            color: #2a5298;
+            font-size: 14px;
+        }
+
+        select, .text-input {
+            padding: 10px 15px;
+            border: 2px solid #2a5298;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+            min-width: 180px;
+            transition: all 0.3s;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .text-input {
+            cursor: text;
+            min-width: 220px;
+        }
+
+        select:hover, select:focus, .text-input:hover, .text-input:focus {
+            border-color: #1e3c72;
+            box-shadow: 0 0 10px rgba(42, 82, 152, 0.2);
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            direction: rtl;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #1e3c72;
+            font-size: 14px;
+            min-width: 120px;
+        }
+
+        td {
+            border: 2px solid #dee2e6;
+            padding: 8px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        td input, td textarea {
+            width: 100%;
+            min-width: 120px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            transition: all 0.3s;
+            resize: none;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        td textarea {
+            min-height: 40px;
+            height: auto;
+            field-sizing: content;
+            overflow-y: hidden;
+        }
+
+        td input:focus, td textarea:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 8px rgba(42, 82, 152, 0.2);
+            outline: none;
+        }
+
+        td input[type="text"] {
+            min-width: 120px;
+            width: 100%;
+        }
+
+        .row-number {
+            background: #e9ecef;
+            font-weight: bold;
+            color: #2a5298;
+            width: 35px;
+            min-width: 35px;
+            max-width: 35px;
+            text-align: center;
+            font-size: 13px;
+            padding: 8px 2px;
+        }
+
+        th:first-child {
+            width: 35px;
+            min-width: 35px;
+            max-width: 35px;
+            padding: 15px 2px;
+            font-size: 13px;
+        }
+
+        .add-row-btn {
+            margin: 20px auto;
+            display: block;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        .notification.success {
+            background: #38ef7d;
+        }
+
+        .notification.info {
+            background: #4facfe;
+        }
+
+        .notification.error {
+            background: #ff6b6b;
+        }
+
+        .auto-save-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #38ef7d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: none;
+            z-index: 1000;
+            font-size: 16px;
+        }
+
+        .auto-save-indicator.show {
+            display: block;
+            animation: fadeInOut 2s ease;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .controls, .add-row-btn, .notification, .auto-save-indicator {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none;
+            }
+            td textarea, td input {
+                overflow: visible !important;
+                height: auto !important;
+                resize: none !important;
+                border: none !important;
+                background: transparent !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            th, td {
+                font-size: 12px;
+                padding: 5px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .row-number, th:first-child {
+                width: 30px;
+                min-width: 30px;
+                max-width: 30px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">
+        ⚠️ تنبيه: نهاية الشهر! يرجى سحب الاستمارة وإرسالها للمسؤول
+    </div>
+
+    <div class="auto-save-indicator" id="autoSaveIndicator">
+        ✅ تم الحفظ تلقائياً في المتصفح
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>قسم التصاريح الأمنية</h1>
+            <h3 style="font-size: 18px; margin-bottom: 10px; opacity: 0.9;">شعبة المتابعة</h3>
+            <h2 style="font-size: 22px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">استمارة الانشطة الشهرية</h2>
+            <div class="subtitle">محافظة <span id="selectedGovernorate">( )</span> - لشهر <span id="selectedMonth">( )</span></div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>اسم الموظف الكامل:</label>
+                <input type="text" class="text-input" id="employeeNameInput" placeholder="أدخل اسمك الكامل" oninput="autoSave()">
+            </div>
+
+            <div class="control-group">
+                <label>المحافظة:</label>
+                <select id="governorateSelect">
+                    <option value="">اختر المحافظة</option>
+                    <option value="بغداد">بغداد</option>
+                    <option value="البصرة">البصرة</option>
+                    <option value="نينوى">نينوى</option>
+                    <option value="النجف">النجف</option>
+                    <option value="ذي قار">ذي قار</option>
+                    <option value="كركوك">كركوك</option>
+                    <option value="الأنبار">الأنبار</option>
+                    <option value="ديالى">ديالى</option>
+                    <option value="المثنى">المثنى</option>
+                    <option value="القادسية">القادسية</option>
+                    <option value="ميسان">ميسان</option>
+                    <option value="واسط">واسط</option>
+                    <option value="صلاح الدين">صلاح الدين</option>
+                    <option value="بابل">بابل</option>
+                    <option value="كربلاء">كربلاء</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>الشهر:</label>
+                <select id="monthSelect">
+                    <option value="">اختر الشهر</option>
+                    <option value="كانون الثاني">كانون الثاني</option>
+                    <option value="شباط">شباط</option>
+                    <option value="آذار">آذار</option>
+                    <option value="نيسان">نيسان</option>
+                    <option value="أيار">أيار</option>
+                    <option value="حزيران">حزيران</option>
+                    <option value="تموز">تموز</option>
+                    <option value="آب">آب</option>
+                    <option value="أيلول">أيلول</option>
+                    <option value="تشرين الأول">تشرين الأول</option>
+                    <option value="تشرين الثاني">تشرين الثاني</option>
+                    <option value="كانون الأول">كانون الأول</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" onclick="addRow()">
+                ➕ إضافة صف
+            </button>
+
+            <button class="btn btn-success" onclick="submitToDashboard()" id="submitBtn">
+                📤 تأكيد وإرسال
+            </button>
+
+            <button class="btn btn-info" onclick="exportToPDF()" id="exportPdfBtn">
+                📄 تصدير PDF فوري
+            </button>
+
+            <button class="btn btn-primary" onclick="clearAll()" style="background: #e71d36; color: white;">
+                🗑️ مسح الاستمارة
+            </button>
+        </div>
+
+        <div class="form-container" id="formContainer">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>ت</th>
+                        <th>المهام والواجبات</th>
+                        <th>عدد الموظفين القائمين بالخدمة</th>
+                        <th>عدد الأعمال ضمن الخطة</th>
+                        <th>نسبة الإنجاز أو عدد المنجز</th>
+                        <th>القسم</th>
+                        <th>الشعبة</th>
+                        <th>الجهة المستفيدة</th>
+                        <th>الجهة الساندة</th>
+                        <th>تاريخ التنفيذ</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- سجل استمارات الموظف التراكمي -->
+    <div class="container" id="historyContainer" style="margin-top: 25px; margin-bottom: 50px; display: none;">
+        <div class="header" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 15px 30px;">
+            <h2 style="font-size: 20px; color: white;">📋 سجل استماراتك التراكمية السابقة</h2>
+            <div style="font-size: 14px; opacity: 0.9; margin-top: 5px;">تعرض هذه القائمة كافة الاستمارات التي قمت بإرسالها مسبقاً باسمك.</div>
+        </div>
+        <div style="padding: 20px; background: white;" id="historyContent">
+            <!-- سيتم حقن جدول الاستمارات هنا -->
+        </div>
+    </div>
+
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        function autoResizeTextarea(element) {
+            element.style.height = 'auto';
+            element.style.height = element.scrollHeight + 'px';
+        }
+
+        function autoResizeInput(element) {
+            const tempSpan = document.createElement('span');
+            tempSpan.style.cssText = 'visibility:hidden;position:absolute;white-space:nowrap;';
+            tempSpan.style.fontSize = window.getComputedStyle(element).fontSize;
+            tempSpan.style.fontFamily = window.getComputedStyle(element).fontFamily;
+            tempSpan.textContent = element.value || element.placeholder;
+            document.body.appendChild(tempSpan);
+            const newWidth = Math.max(tempSpan.offsetWidth + 30, 120);
+            element.style.width = newWidth + 'px';
+            document.body.removeChild(tempSpan);
+        }
+
+        function loadSavedData() {
+            try {
+                const saved = localStorage.getItem('securityFormData');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    document.getElementById('employeeNameInput').value = data.employeeName || '';
+                    document.getElementById('governorateSelect').value = data.governorate || '';
+                    document.getElementById('monthSelect').value = data.month || '';
+                    updateHeader();
+                    if (data.rows && data.rows.length > 0) {
+                        data.rows.forEach(row => addRowWithData(row));
+                    } else {
+                        addRow();
+                    }
+                } else {
+                    addRow();
+                }
+            } catch (e) {
+                console.error('Error loading saved data:', e);
+                addRow();
+            }
+        }
+
+        function autoSave() {
+            try {
+                const rows = collectCurrentData();
+                const data = {
+                    employeeName: document.getElementById('employeeNameInput').value,
+                    governorate: document.getElementById('governorateSelect').value,
+                    month: document.getElementById('monthSelect').value,
+                    rows: rows,
+                    lastSaved: new Date().toISOString()
+                };
+                localStorage.setItem('securityFormData', JSON.stringify(data));
+                const indicator = document.getElementById('autoSaveIndicator');
+                indicator.classList.add('show');
+                setTimeout(() => indicator.classList.remove('show'), 2000);
+            } catch (e) {
+                console.error('Error saving data:', e);
+            }
+        }
+
+        function addRow() {
+            const tbody = document.getElementById('tableBody');
+            const rowCount = tbody.children.length + 1;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="row-number">${rowCount}</td>
+                <td><textarea placeholder="المهام والواجبات" oninput="autoSave(); autoResizeTextarea(this)"></textarea></td>
+                <td><input type="number" oninput="autoSave()" placeholder="عدد الموظفين"></td>
+                <td><input type="number" oninput="autoSave()" placeholder="عدد الأعمال"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" placeholder="نسبة الإنجاز"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" placeholder="القسم" value=""></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" placeholder="الشعبة"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" placeholder="الجهة المستفيدة"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" placeholder="الجهة الساندة"></td>
+                <td><input type="date" onchange="autoSave()" placeholder="تاريخ التنفيذ"></td>
+            `;
+            tbody.appendChild(tr);
+            autoSave();
+        }
+
+        function addRowWithData(data) {
+            const tbody = document.getElementById('tableBody');
+            const rowCount = tbody.children.length + 1;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="row-number">${rowCount}</td>
+                <td><textarea placeholder="المهام والواجبات" oninput="autoSave(); autoResizeTextarea(this)">${data.tasks || ''}</textarea></td>
+                <td><input type="number" oninput="autoSave()" value="${data.employees || ''}" placeholder="عدد الموظفين"></td>
+                <td><input type="number" oninput="autoSave()" value="${data.planned || ''}" placeholder="عدد الأعمال"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" value="${data.completion || ''}" placeholder="نسبة الإنجاز"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" value="${data.section || ''}" placeholder="القسم"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" value="${data.department || ''}" placeholder="الشعبة"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" value="${data.beneficiary || ''}" placeholder="الجهة المستفيدة"></td>
+                <td><input type="text" oninput="autoSave(); autoResizeInput(this)" value="${data.supporting || ''}" placeholder="الجهة الساندة"></td>
+                <td><input type="date" onchange="autoSave()" value="${data.date || ''}"></td>
+            `;
+            tbody.appendChild(tr);
+            setTimeout(() => {
+                tr.querySelectorAll('textarea').forEach(ta => autoResizeTextarea(ta));
+                tr.querySelectorAll('input[type="text"]').forEach(inp => autoResizeInput(inp));
+            }, 10);
+        }
+
+        function updateHeader() {
+            const gov = document.getElementById('governorateSelect').value || '( )';
+            const month = document.getElementById('monthSelect').value || '( )';
+            document.getElementById('selectedGovernorate').textContent = gov;
+            document.getElementById('selectedMonth').textContent = month;
+            autoSave();
+        }
+
+        function collectCurrentData() {
+            const rows = [];
+            const tbody = document.getElementById('tableBody');
+            const trs = tbody.querySelectorAll('tr');
+            trs.forEach(tr => {
+                const inputs = tr.querySelectorAll('input, textarea');
+                rows.push({
+                    rowNum: tr.querySelector('.row-number').textContent,
+                    tasks: inputs[0].value,
+                    employees: inputs[1].value,
+                    planned: inputs[2].value,
+                    completion: inputs[3].value,
+                    section: inputs[4].value,
+                    department: inputs[5].value,
+                    beneficiary: inputs[6].value,
+                    supporting: inputs[7].value,
+                    date: inputs[8].value,
+                });
+            });
+            return rows;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function getCumulativeEmployeeRows(governorate, month) {
+            const name = document.getElementById('employeeNameInput').value;
+            if (!name || name.trim() === '') return [];
+            
+            const matchedSubs = mySubmissionsCache.filter(s => 
+                s.userName && s.userName.toLowerCase() === name.trim().toLowerCase() &&
+                s.governorate === governorate &&
+                s.month === month
+            );
+            
+            let allRows = [];
+            matchedSubs.forEach(s => {
+                if (s.rows && Array.isArray(s.rows)) {
+                    allRows = allRows.concat(s.rows);
+                }
+            });
+            
+            const seen = new Set();
+            return allRows.filter(row => {
+                const key = [
+                    (row.tasks || '').trim(),
+                    (row.employees || '').toString().trim(),
+                    (row.planned || '').toString().trim(),
+                    (row.completion || '').trim(),
+                    (row.section || '').trim(),
+                    (row.department || '').trim(),
+                    (row.beneficiary || '').trim(),
+                    (row.supporting || '').trim(),
+                    (row.date || '').trim()
+                ].join('|||').toLowerCase();
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+        }
+
+        async function submitToDashboard() {
+            const btn = document.getElementById('submitBtn');
+            const userName = document.getElementById('employeeNameInput').value;
+            const governorate = document.getElementById('governorateSelect').value;
+            const month = document.getElementById('monthSelect').value;
+
+            if (!userName || userName.trim() === '') {
+                showNotification('⚠️ يرجى إدخال اسم الموظف الكامل أولاً', 'error');
+                return;
+            }
+            if (!governorate) {
+                showNotification('⚠️ يرجى اختيار المحافظة أولاً', 'error');
+                return;
+            }
+            if (!month) {
+                showNotification('⚠️ يرجى اختيار الشهر أولاً', 'error');
+                return;
+            }
+
+            const rows = collectCurrentData();
+            const validRows = rows.filter(r => r.tasks && r.tasks.trim() !== '');
+
+            if (validRows.length === 0) {
+                showNotification('⚠️ يرجى تعبئة المهام والواجبات على الأقل في صف واحد لإرسال البيانات', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '⏳ جاري الإرسال...';
+
+            try {
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userName: userName.trim(),
+                        governorate,
+                        month,
+                        rows: validRows
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    showNotification('✅ تم إرسال وحفظ الاستمارة في لوحة التحكم بنجاح! جاري تحميل نسختك الـ PDF...', 'success');
+                    
+                    // Fetch updated employee history so cache has the new submission
+                    await fetchEmployeeHistory();
+                    
+                    // Automatically trigger cumulative PDF download for the employee (نسخة عند المرسل)
+                    try {
+                        const cumulativeRows = getCumulativeEmployeeRows(governorate, month);
+                        const pdfResult = await createPDF(governorate, month, cumulativeRows, 'نسخة الموظف');
+                        if (pdfResult) {
+                            pdfResult.pdf.save(pdfResult.fileName);
+                        }
+                    } catch (pdfErr) {
+                        console.error('Error generating PDF receipt:', pdfErr);
+                    }
+
+                    if (confirm('تم الحفظ بنجاح وتحميل نسختك الـ PDF. هل ترغب في تفريغ الاستمارة لبدء إدخال جديد؟')) {
+                        clearAllWithoutConfirm();
+                    }
+                } else {
+                    showNotification('❌ فشل حفظ البيانات: ' + (result.error || 'خطأ في الخادم'), 'error');
+                }
+            } catch (err) {
+                showNotification('❌ حدث خطأ في الاتصال بالشبكة', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📤 تأكيد وإرسال';
+            }
+        }
+
+        async function createPDF(governorate, month, rows, type) {
+            try {
+                const ROWS_PER_PAGE = 12;
+
+                if (!rows || rows.length === 0) {
+                    showNotification('⚠️ لا توجد بيانات لإنشاء PDF', 'error');
+                    return null;
+                }
+
+                const totalPages = Math.ceil(rows.length / ROWS_PER_PAGE);
+                const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+                let hiddenContainer = document.getElementById('pdfRenderContainer');
+                if (!hiddenContainer) {
+                    hiddenContainer = document.createElement('div');
+                    hiddenContainer.id = 'pdfRenderContainer';
+                    hiddenContainer.style.cssText = 'position:fixed;left:-10000px;top:0;width:1200px;background:white;padding:20px;direction:rtl;z-index:-9999;overflow:hidden;';
+                    document.body.appendChild(hiddenContainer);
+                }
+
+                for (let page = 0; page < totalPages; page++) {
+                    if (page > 0) {
+                        pdf.addPage();
+                    }
+
+                    const pageRows = rows.slice(page * ROWS_PER_PAGE, (page + 1) * ROWS_PER_PAGE);
+
+                    let tableHTML = `
+                        <div style="text-align:center;margin-bottom:12px;direction:rtl;font-family:Cairo,Arial,Tahoma,sans-serif;">
+                            <div style="color:#1e3c72;font-size:26px;font-weight:bold;margin-bottom:4px;">قسم التصاريح الأمنية</div>
+                            <div style="color:#1e3c72;font-size:20px;font-weight:bold;margin-bottom:6px;">شعبة المتابعة</div>
+                            <div style="color:#1e3c72;font-size:22px;font-weight:bold;margin-bottom:6px;">استمارة الانشطة الشهرية</div>
+                            <div style="color:#2a5298;font-size:18px;font-weight:bold;margin-bottom:6px;">محافظة (${governorate}) - لشهر (${month})</div>
+                            <div style="color:#666;font-size:11px;">صفحة ${page + 1} من ${totalPages}</div>
+                        </div>
+                        <table style="width:100%;border-collapse:collapse;direction:rtl;font-family:Cairo,Arial,Tahoma,sans-serif;table-layout:fixed;">
+                            <thead>
+                                <tr style="background:#1e3c72;color:white;">
+                                    <th style="border:2px solid #1e3c72;padding:8px 2px;text-align:center;font-size:14px;width:30px;">ت</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:180px;">المهام والواجبات</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:70px;">عدد الموظفين</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:70px;">عدد الأعمال</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:80px;">نسبة الإنجاز</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:90px;">القسم</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:90px;">الشعبة</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:100px;">الجهة المستفيدة</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:100px;">الجهة الساندة</th>
+                                    <th style="border:2px solid #1e3c72;padding:8px;text-align:center;font-size:14px;width:90px;">تاريخ التنفيذ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    pageRows.forEach((row, index) => {
+                        const bgColor = index % 2 === 0 ? '#ffffff' : '#f8f9fa';
+                        const globalIndex = page * ROWS_PER_PAGE + index;
+                        tableHTML += `
+                            <tr style="background:${bgColor};">
+                                <td style="border:1px solid #dee2e6;padding:7px 2px;text-align:center;font-size:12px;width:30px;word-wrap:break-word;">${globalIndex + 1}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:right;font-size:12px;width:180px;word-wrap:break-word;">${escapeHtml(row.tasks || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:70px;word-wrap:break-word;">${escapeHtml(row.employees || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:70px;word-wrap:break-word;">${escapeHtml(row.planned || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:80px;word-wrap:break-word;">${escapeHtml(row.completion || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:90px;word-wrap:break-word;">${escapeHtml(row.section || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:90px;word-wrap:break-word;">${escapeHtml(row.department || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:100px;word-wrap:break-word;">${escapeHtml(row.beneficiary || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:100px;word-wrap:break-word;">${escapeHtml(row.supporting || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:90px;word-wrap:break-word;">${escapeHtml(row.date || '')}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHTML += '</tbody></table>';
+                    hiddenContainer.innerHTML = tableHTML;
+                    hiddenContainer.offsetHeight;
+
+                    await new Promise(resolve => setTimeout(resolve, 100));
+
+                    const canvas = await html2canvas(hiddenContainer, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        allowTaint: true,
+                        backgroundColor: '#ffffff',
+                        width: 1200,
+                        height: hiddenContainer.scrollHeight,
+                        windowWidth: 1200,
+                        windowHeight: hiddenContainer.scrollHeight
+                    });
+
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    const margin = 8;
+                    const availableWidth = pdfWidth - (margin * 2);
+                    const availableHeight = pdfHeight - (margin * 2);
+
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
+                    const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
+
+                    const imgX = margin + (availableWidth - imgWidth * ratio) / 2;
+                    const imgY = margin;
+
+                    pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                }
+
+                hiddenContainer.innerHTML = '';
+                const fileName = `استمارة_${governorate}_${month}_${new Date().toISOString().split('T')[0]}.pdf`;
+
+                return {
+                    pdf: pdf,
+                    fileName: fileName
+                };
+            } catch (error) {
+                console.error('Error creating PDF:', error);
+                showNotification('❌ حدث خطأ أثناء إنشاء PDF: ' + error.message, 'error');
+                return null;
+            }
+        }
+
+        async function exportToPDF() {
+            const btn = document.getElementById('exportPdfBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ جاري التصدير...';
+
+            try {
+                const governorate = document.getElementById('governorateSelect').value || 'غير محدد';
+                const month = document.getElementById('monthSelect').value || 'غير محدد';
+                const currentRows = collectCurrentData();
+
+                const result = await createPDF(governorate, month, currentRows, 'نسخة فوري');
+
+                if (result) {
+                    result.pdf.save(result.fileName);
+                    showNotification(`✅ تم تصدير PDF (${currentRows.length} سجل)`, 'success');
+                }
+            } catch (error) {
+                console.error('Error exporting PDF:', error);
+                showNotification('❌ حدث خطأ أثناء التصدير', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📄 تصدير PDF فوري';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = message;
+            notification.className = 'notification show ' + type;
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        function clearAllWithoutConfirm() {
+            localStorage.removeItem('securityFormData');
+            document.getElementById('employeeNameInput').value = '';
+            document.getElementById('tableBody').innerHTML = '';
+            document.getElementById('governorateSelect').value = '';
+            document.getElementById('monthSelect').value = '';
+            updateHeader();
+            addRow();
+        }
+
+        function clearAll() {
+            if (confirm('هل أنت متأكد من تفريغ الاستمارة الحالية؟ لن يؤثر ذلك على الاستمارات التي تم إرسالها مسبقاً للمسؤول.')) {
+                clearAllWithoutConfirm();
+                showNotification('🗑️ تم تفريغ الاستمارة', 'success');
+            }
+        }
+
+        function checkMonthEnd() {
+            const now = new Date();
+            const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+            const daysUntilEnd = Math.ceil((lastDay - now) / (1000 * 60 * 60 * 24));
+
+            if (daysUntilEnd <= 3) {
+                const notification = document.getElementById('notification');
+                notification.innerHTML = `⚠️ تنبيه: باقي ${daysUntilEnd} يوم على نهاية الشهر! يرجى سحب الاستمارة وإرسالها للمسؤول`;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 10000);
+            }
+        }
+
+        document.getElementById('governorateSelect').addEventListener('change', updateHeader);
+        document.getElementById('monthSelect').addEventListener('change', updateHeader);
+
+        // Employee submissions cache
+        let mySubmissionsCache = [];
+        let debounceTimer;
+
+        // Fetch employee history function
+        async function fetchEmployeeHistory() {
+            const name = document.getElementById('employeeNameInput').value;
+            const historyContainer = document.getElementById('historyContainer');
+            const historyContent = document.getElementById('historyContent');
+            
+            if (!name || name.trim() === '') {
+                historyContainer.style.display = 'none';
+                mySubmissionsCache = [];
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/my-submissions?name=${encodeURIComponent(name.trim())}`);
+                mySubmissionsCache = await response.json();
+                
+                if (mySubmissionsCache.length === 0) {
+                    historyContainer.style.display = 'none';
+                    return;
+                }
+                
+                historyContainer.style.display = 'block';
+                
+                let html = `
+                    <h3 style="color:#1e3c72; margin-bottom:15px; font-size:18px; border-bottom:2px solid #e9ecef; padding-bottom:8px; text-align:right;">📋 سجل الإرسالات الفردية السابقة</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; direction: rtl;">
+                            <thead>
+                                <tr style="background: #f8f9fa;">
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">ت</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">المحافظة</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">الشهر</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">تاريخ الإرسال</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">عدد الأنشطة</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">خيارات التنزيل والاستعادة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                mySubmissionsCache.forEach((sub, idx) => {
+                    const submissionDateFormatted = new Date(sub.submissionDate).toLocaleString('ar-IQ');
+                    html += `
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <td style="padding: 10px; text-align: center; font-weight: bold; font-size:14px;">${idx + 1}</td>
+                            <td style="padding: 10px; text-align: center; font-size:14px;">${sub.governorate}</td>
+                            <td style="padding: 10px; text-align: center; font-size:14px;">${sub.month}</td>
+                            <td style="padding: 10px; text-align: center; font-size:14px;">${submissionDateFormatted}</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; color: #764ba2; font-size:14px;">${sub.rows.length}</td>
+                            <td style="padding: 10px; text-align: center;">
+                                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                                    <button class="btn btn-info" style="padding: 6px 12px; font-size: 13px;" onclick="downloadEmployeePDF('${sub.id}')">📄 PDF</button>
+                                    <button class="btn btn-warning" style="padding: 6px 12px; font-size: 13px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border:none;" onclick="restoreSubmission('${sub.id}')">📥 استعادة وتعديل</button>
+                                    <button class="btn btn-danger" style="padding: 6px 12px; font-size: 13px; background: #e71d36; color:white; border:none;" onclick="deleteEmployeeSubmission('${sub.id}')">🗑️ حذف</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                historyContent.innerHTML = html;
+                
+            } catch (err) {
+                console.error('Error fetching history:', err);
+            }
+        }
+
+        // Action functions
+        async function downloadEmployeePDF(subId) {
+            const sub = mySubmissionsCache.find(s => s.id === subId);
+            if (!sub) return;
+            showNotification('⏳ جاري إنشاء وتحميل نسخة الـ PDF التراكمية...', 'info');
+            const cumulativeRows = getCumulativeEmployeeRows(sub.governorate, sub.month);
+            const result = await createPDF(sub.governorate, sub.month, cumulativeRows, 'نسخة الموظف');
+            if (result) {
+                result.pdf.save(result.fileName);
+                showNotification('✅ تم تحميل الـ PDF التراكمي بنجاح', 'success');
+            }
+        }
+
+        function restoreSubmission(subId) {
+            const sub = mySubmissionsCache.find(s => s.id === subId);
+            if (!sub) return;
+            
+            if (confirm('هل أنت متأكد من استعادة هذه الاستمارة؟ سيؤدي ذلك لاستبدال محتويات الجدول الحالي بالبيانات القديمة.')) {
+                // Clear table body
+                document.getElementById('tableBody').innerHTML = '';
+                
+                // Populate rows
+                sub.rows.forEach(row => addRowWithData(row));
+                
+                // Set metadata
+                document.getElementById('governorateSelect').value = sub.governorate || '';
+                document.getElementById('monthSelect').value = sub.month || '';
+                updateHeader();
+                
+                showNotification('📥 تم استعادة بيانات الاستمارة بنجاح. يمكنك الآن تعديلها وإعادة إرسالها.', 'success');
+            }
+        }
+
+        async function deleteEmployeeSubmission(subId) {
+            const name = document.getElementById('employeeNameInput').value;
+            if (confirm('هل أنت متأكد من حذف هذه الاستمارة بالكامل؟ سيؤدي ذلك لإزالتها نهائياً من السجل التراكمي ومن لوحة تحكم الأدمن.')) {
+                try {
+                    const response = await fetch(`/api/submissions/employee/${subId}?name=${encodeURIComponent(name.trim())}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        showNotification('✅ تم حذف الاستمارة بنجاح', 'success');
+                        fetchEmployeeHistory();
+                    } else {
+                        const result = await response.json();
+                        showNotification('❌ خطأ أثناء حذف الاستمارة: ' + (result.error || 'خطأ غير معروف'), 'error');
+                    }
+                } catch (e) {
+                    showNotification('❌ خطأ في الاتصال بالخادم', 'error');
+                }
+            }
+        }
+
+        // Listener for search
+        document.getElementById('employeeNameInput').addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(fetchEmployeeHistory, 500);
+        });
+
+        // Trigger check on focus/blur or directly on load if name exists
+        window.addEventListener('load', () => {
+            loadSavedData();
+            checkMonthEnd();
+            setInterval(checkMonthEnd, 3600000);
+            
+            // Check history if name already populated
+            setTimeout(fetchEmployeeHistory, 800);
+        });
+
+        setInterval(autoSave, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+node_modules/
+db.json
+scratch/
+.env
+*.bak
+*.log
+.gemini/
