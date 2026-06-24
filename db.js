@@ -202,6 +202,17 @@ function deleteSubmission(subId) {
     return true;
 }
 
+function updateAdminPasscode(newPasscode) {
+    const db = readDb();
+    const admin = db.users.find(u => u.role === 'admin');
+    if (!admin) {
+        throw new Error('لم يتم العثور على حساب مدير النظام');
+    }
+    admin.passcode = newPasscode;
+    writeDb(db);
+    return true;
+}
+
 module.exports = {
     initDb,
     getUsers,
@@ -210,5 +221,6 @@ module.exports = {
     findUserByPasscode,
     getSubmissions,
     addSubmission,
-    deleteSubmission
+    deleteSubmission,
+    updateAdminPasscode
 };

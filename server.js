@@ -76,15 +76,18 @@ app.post('/api/login', (req, res) => {
         return res.status(400).json({ error: 'يرجى إدخال رمز الدخول للمسؤول' });
     }
 
-    if (passcode === 'admin123') {
-        req.session.userId = 'admin_default';
-        req.session.userName = 'مدير النظام';
+    const adminUser = db.getUsers().find(u => u.role === 'admin');
+    const validPasscode = adminUser ? adminUser.passcode : 'admin123';
+
+    if (passcode === validPasscode) {
+        req.session.userId = adminUser ? adminUser.id : 'admin_default';
+        req.session.userName = adminUser ? adminUser.name : 'مدير النظام';
         req.session.role = 'admin';
         
         return res.json({ 
             success: true, 
             role: 'admin', 
-            name: 'مدير النظام',
+            name: adminUser ? adminUser.name : 'مدير النظام',
             redirect: '/dashboard.html'
         });
     } else {
@@ -109,6 +112,29 @@ app.get('/api/session', (req, res) => {
         });
     } else {
         res.json({ loggedIn: false });
+    }
+});
+
+// Change Admin Passcode (Admin only)
+app.post('/api/admin/change-passcode', requireAdmin, (req, res) => {
+    const { currentPasscode, newPasscode } = req.body;
+    if (!currentPasscode || !newPasscode) {
+        return res.status(400).json({ error: 'الرجاء إدخال رمز الدخول الحالي والجديد' });
+    }
+
+    try {
+        const adminUser = db.getUsers().find(u => u.role === 'admin');
+        const validPasscode = adminUser ? adminUser.passcode : 'admin123';
+
+        if (currentPasscode !== validPasscode) {
+            return res.status(400).json({ error: 'رمز الدخول الحالي غير صحيح' });
+        }
+
+        db.updateAdminPasscode(newPasscode);
+        res.json({ success: true, message: 'تم تغيير رمز الدخول بنجاح' });
+    } catch (e) {
+        console.error('Error changing admin passcode:', e);
+        res.status(500).json({ error: 'حدث خطأ أثناء تغيير رمز الدخول' });
     }
 });
 
