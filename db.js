@@ -10,7 +10,7 @@ let isSaving = false;
 let needsSave = false;
 let initPromise = null;
 
-const FIREBASE_URL = process.env.FIREBASE_URL;
+const FIREBASE_URL = process.env.FIREBASE_URL || 'https://inshetaa-default-rtdb.firebaseio.com/db.json';
 
 // Helper to read database
 function readDb() {
