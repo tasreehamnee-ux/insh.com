@@ -926,13 +926,13 @@
                     <div style="overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; direction: rtl;">
                             <thead>
-                                <tr style="background: #f8f9fa;">
-                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">ت</th>
-                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">المحافظة</th>
-                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">الشهر</th>
-                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">تاريخ الإرسال</th>
-                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">عدد الأنشطة</th>
-                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: #2a5298; font-size:14px; text-align:center;">خيارات التنزيل والاستعادة</th>
+                                <tr>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: white; font-size:14px; text-align:center;">ت</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: white; font-size:14px; text-align:center;">المحافظة</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: white; font-size:14px; text-align:center;">الشهر</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: white; font-size:14px; text-align:center;">تاريخ الإرسال</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: white; font-size:14px; text-align:center;">عدد الأنشطة</th>
+                                    <th style="border: 1px solid #dee2e6; padding: 10px; color: white; font-size:14px; text-align:center;">خيارات التنزيل والاستعادة</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1005,7 +1005,9 @@
         }
 
         async function deleteEmployeeSubmission(subId) {
-            const name = document.getElementById('employeeNameInput').value;
+            const sub = mySubmissionsCache.find(s => s.id === subId);
+            if (!sub) return;
+            const name = sub.userName;
             if (confirm('هل أنت متأكد من حذف هذه الاستمارة بالكامل؟ سيؤدي ذلك لإزالتها نهائياً من السجل التراكمي ومن لوحة تحكم الأدمن.')) {
                 try {
                     const response = await fetch(`/api/submissions/employee/${subId}?name=${encodeURIComponent(name.trim())}`, { method: 'DELETE' });
