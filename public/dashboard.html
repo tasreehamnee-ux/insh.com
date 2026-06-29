@@ -430,35 +430,10 @@
         <h1>⚙️ لوحة تحكم المسؤول - قسم التصاريح الأمنية</h1>
         <div class="user-info">
             <span class="user-badge" id="adminName">مدير النظام</span>
-            <button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px; font-weight: bold; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;" onclick="openChangePasscodeModal()">🔑 تغيير رمز الدخول</button>
-            <button class="logout-btn" onclick="logout()">تسجيل الخروج</button>
         </div>
     </header>
 
-    <!-- Change Passcode Modal -->
-    <div id="changePasscodeModal" class="modal-overlay" style="display: none;">
-        <div class="modal-card">
-            <div class="modal-header">🔑 تغيير رمز الدخول للمسؤول</div>
-            <div class="modal-body">
-                <div style="margin-bottom: 15px; text-align: right;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">رمز الدخول الحالي:</label>
-                    <input type="password" id="currentPasscode" class="form-control" placeholder="أدخل رمز الدخول الحالي">
-                </div>
-                <div style="margin-bottom: 15px; text-align: right;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">رمز الدخول الجديد:</label>
-                    <input type="password" id="newPasscode" class="form-control" placeholder="أدخل رمز الدخول الجديد">
-                </div>
-                <div style="margin-bottom: 20px; text-align: right;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">تأكيد رمز الدخول الجديد:</label>
-                    <input type="password" id="confirmNewPasscode" class="form-control" placeholder="تأكيد رمز الدخول الجديد">
-                </div>
-            </div>
-            <div class="modal-footer" style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button class="btn btn-success" style="font-size: 14px; padding: 8px 16px;" onclick="submitChangePasscode()">حفظ التغيير</button>
-                <button class="btn btn-danger" style="background:#6c757d; font-size: 14px; padding: 8px 16px;" onclick="closeChangePasscodeModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
+    <!-- Change Passcode Modal Removed -->
 
     <!-- Main Section -->
     <main class="dashboard-container">
@@ -560,17 +535,7 @@
 
         // Check auth and session
         async function checkSession() {
-            try {
-                const response = await fetch('/api/session');
-                const session = await response.json();
-                if (!session.loggedIn || session.role !== 'admin') {
-                    window.location.href = '/login.html';
-                } else {
-                    document.getElementById('adminName').textContent = session.name || 'مدير النظام';
-                }
-            } catch (e) {
-                window.location.href = '/login.html';
-            }
+            document.getElementById('adminName').textContent = 'مدير النظام';
         }
 
         // Show Toast
@@ -584,52 +549,7 @@
             }, 4000);
         }
 
-        // Change Passcode Modal Controls
-        function openChangePasscodeModal() {
-            document.getElementById('currentPasscode').value = '';
-            document.getElementById('newPasscode').value = '';
-            document.getElementById('confirmNewPasscode').value = '';
-            document.getElementById('changePasscodeModal').style.display = 'flex';
-        }
-
-        function closeChangePasscodeModal() {
-            document.getElementById('changePasscodeModal').style.display = 'none';
-        }
-
-        async function submitChangePasscode() {
-            const currentPasscode = document.getElementById('currentPasscode').value;
-            const newPasscode = document.getElementById('newPasscode').value;
-            const confirmNewPasscode = document.getElementById('confirmNewPasscode').value;
-
-            if (!currentPasscode || !newPasscode || !confirmNewPasscode) {
-                showToast('يرجى ملء جميع الحقول المطلوبة', 'error');
-                return;
-            }
-
-            if (newPasscode !== confirmNewPasscode) {
-                showToast('رمز الدخول الجديد وتأكيده غير متطابقين', 'error');
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/admin/change-passcode', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ currentPasscode, newPasscode })
-                });
-
-                const result = await response.json();
-                if (response.ok && result.success) {
-                    showToast('تم تغيير رمز الدخول بنجاح!', 'success');
-                    closeChangePasscodeModal();
-                } else {
-                    showToast(result.error || 'فشل تغيير رمز الدخول', 'error');
-                }
-            } catch (e) {
-                console.error('Error changing passcode:', e);
-                showToast('حدث خطأ في الشبكة أثناء تغيير رمز الدخول', 'error');
-            }
-        }
+        // Change Passcode Modal Controls Removed
 
         // Fetch Dashboard Data (Unfiltered master copy)
         async function loadDashboardData() {
@@ -1022,17 +942,7 @@
             }
         }
 
-        // Logout
-        async function logout() {
-            try {
-                const response = await fetch('/api/logout', { method: 'POST' });
-                if (response.ok) {
-                    window.location.href = '/login.html';
-                }
-            } catch (e) {
-                window.location.href = '/login.html';
-            }
-        }
+        // Logout removed
 
         // On Load
         window.onload = async () => {
