@@ -860,9 +860,24 @@
                     const subElements = header.querySelectorAll('h2, .banner-title, .subtitle, .meta-info');
                     subElements.forEach(el => {
                         originalTitlesStyles.push({ el: el, cssText: el.style.cssText });
-                        el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important;';
+                        el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important; font-weight: bold !important;';
                     });
                 }
+                
+                // Temporarily make table headers and cells bold & clear
+                const tableHeaders = element.querySelectorAll('.form-styled-table th');
+                const tableCells = element.querySelectorAll('.form-styled-table td');
+                let originalTableStyles = [];
+                
+                tableHeaders.forEach(th => {
+                    originalTableStyles.push({ el: th, cssText: th.style.cssText });
+                    th.style.cssText += 'background: #ffffff !important; color: #1e3c72 !important; border: 2px solid #1e3c72 !important; font-weight: bold !important; font-size: 15px !important;';
+                });
+                
+                tableCells.forEach(td => {
+                    originalTableStyles.push({ el: td, cssText: td.style.cssText });
+                    td.style.cssText += 'color: #000000 !important; font-weight: bold !important; font-size: 14px !important; border: 2px solid #a0aec0 !important;';
+                });
                 
                 const canvas = await html2canvas(element, {
                     scale: 2,
@@ -876,6 +891,9 @@
                     header.style.cssText = originalHeaderStyle;
                 }
                 originalTitlesStyles.forEach(item => {
+                    item.el.style.cssText = item.cssText;
+                });
+                originalTableStyles.forEach(item => {
                     item.el.style.cssText = item.cssText;
                 });
                 noPdfElements.forEach(el => el.style.display = '');
@@ -942,9 +960,24 @@
                         const subElements = header.querySelectorAll('h2, .banner-title, .subtitle, .meta-info');
                         subElements.forEach(el => {
                             originalTitlesStyles.push({ el: el, cssText: el.style.cssText });
-                            el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important;';
+                            el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important; font-weight: bold !important;';
                         });
                     }
+                    
+                    // Temporarily make table headers and cells bold & clear
+                    const tableHeaders = element.querySelectorAll('.form-styled-table th');
+                    const tableCells = element.querySelectorAll('.form-styled-table td');
+                    let originalTableStyles = [];
+                    
+                    tableHeaders.forEach(th => {
+                        originalTableStyles.push({ el: th, cssText: th.style.cssText });
+                        th.style.cssText += 'background: #ffffff !important; color: #1e3c72 !important; border: 2px solid #1e3c72 !important; font-weight: bold !important; font-size: 15px !important;';
+                    });
+                    
+                    tableCells.forEach(td => {
+                        originalTableStyles.push({ el: td, cssText: td.style.cssText });
+                        td.style.cssText += 'color: #000000 !important; font-weight: bold !important; font-size: 14px !important; border: 2px solid #a0aec0 !important;';
+                    });
                     
                     const canvas = await html2canvas(element, {
                         scale: 2,
@@ -957,6 +990,9 @@
                         header.style.cssText = originalHeaderStyle;
                     }
                     originalTitlesStyles.forEach(item => {
+                        item.el.style.cssText = item.cssText;
+                    });
+                    originalTableStyles.forEach(item => {
                         item.el.style.cssText = item.cssText;
                     });
                     noPdfElements.forEach(el => el.style.display = '');
