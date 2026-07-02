@@ -864,14 +864,14 @@
                     });
                 }
                 
-                // Temporarily make table headers and cells bold & clear
+                // Temporarily make table headers and cells bold & clear (keeping th background blue and text white)
                 const tableHeaders = element.querySelectorAll('.form-styled-table th');
                 const tableCells = element.querySelectorAll('.form-styled-table td');
                 let originalTableStyles = [];
                 
                 tableHeaders.forEach(th => {
                     originalTableStyles.push({ el: th, cssText: th.style.cssText });
-                    th.style.cssText += 'background: #ffffff !important; color: #1e3c72 !important; border: 2px solid #1e3c72 !important; font-weight: bold !important; font-size: 15px !important;';
+                    th.style.cssText += 'font-weight: bold !important; font-size: 15px !important;';
                 });
                 
                 tableCells.forEach(td => {
@@ -964,14 +964,14 @@
                         });
                     }
                     
-                    // Temporarily make table headers and cells bold & clear
+                    // Temporarily make table headers and cells bold & clear (keeping th background blue and text white)
                     const tableHeaders = element.querySelectorAll('.form-styled-table th');
                     const tableCells = element.querySelectorAll('.form-styled-table td');
                     let originalTableStyles = [];
                     
                     tableHeaders.forEach(th => {
                         originalTableStyles.push({ el: th, cssText: th.style.cssText });
-                        th.style.cssText += 'background: #ffffff !important; color: #1e3c72 !important; border: 2px solid #1e3c72 !important; font-weight: bold !important; font-size: 15px !important;';
+                        th.style.cssText += 'font-weight: bold !important; font-size: 15px !important;';
                     });
                     
                     tableCells.forEach(td => {
