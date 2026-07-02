@@ -851,6 +851,19 @@
                 const originalStyle = element.style.cssText;
                 element.style.cssText += 'width:1100px; padding:20px; background:white;';
                 
+                // Temporarily make header white with dark text
+                const header = element.querySelector('.form-block-header');
+                const originalHeaderStyle = header ? header.style.cssText : '';
+                let originalTitlesStyles = [];
+                if (header) {
+                    header.style.cssText += 'background: #ffffff !important; color: #1e3c72 !important; border-bottom: 2px solid #1e3c72;';
+                    const subElements = header.querySelectorAll('h2, .banner-title, .subtitle, .meta-info');
+                    subElements.forEach(el => {
+                        originalTitlesStyles.push({ el: el, cssText: el.style.cssText });
+                        el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important;';
+                    });
+                }
+                
                 const canvas = await html2canvas(element, {
                     scale: 2,
                     useCORS: true,
@@ -859,6 +872,12 @@
                 
                 // Restore styles
                 element.style.cssText = originalStyle;
+                if (header) {
+                    header.style.cssText = originalHeaderStyle;
+                }
+                originalTitlesStyles.forEach(item => {
+                    item.el.style.cssText = item.cssText;
+                });
                 noPdfElements.forEach(el => el.style.display = '');
                 
                 const imgData = canvas.toDataURL('image/png');
@@ -914,6 +933,19 @@
                     const originalStyle = element.style.cssText;
                     element.style.cssText += 'width:1100px; padding:20px; background:white;';
                     
+                    // Temporarily make header white with dark text
+                    const header = element.querySelector('.form-block-header');
+                    const originalHeaderStyle = header ? header.style.cssText : '';
+                    let originalTitlesStyles = [];
+                    if (header) {
+                        header.style.cssText += 'background: #ffffff !important; color: #1e3c72 !important; border-bottom: 2px solid #1e3c72;';
+                        const subElements = header.querySelectorAll('h2, .banner-title, .subtitle, .meta-info');
+                        subElements.forEach(el => {
+                            originalTitlesStyles.push({ el: el, cssText: el.style.cssText });
+                            el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important;';
+                        });
+                    }
+                    
                     const canvas = await html2canvas(element, {
                         scale: 2,
                         useCORS: true,
@@ -921,6 +953,12 @@
                     });
                     
                     element.style.cssText = originalStyle;
+                    if (header) {
+                        header.style.cssText = originalHeaderStyle;
+                    }
+                    originalTitlesStyles.forEach(item => {
+                        item.el.style.cssText = item.cssText;
+                    });
                     noPdfElements.forEach(el => el.style.display = '');
                     
                     const imgData = canvas.toDataURL('image/png');
