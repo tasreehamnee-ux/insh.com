@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - وحدة التصاريح الأمنية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Tahoma', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 455px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        p {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: right;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2a5298;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 4px;
+            transition: all 0.3s;
+            background: white;
+            color: #333;
+        }
+
+        input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.2);
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(42, 82, 152, 0.4);
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            color: #e53e3e;
+            background: #fed7d7;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            text-align: right;
+            border-right: 4px solid #e53e3e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo">🔒</div>
+        <h1>وحدة التصاريح الأمنية</h1>
+        <p>الرجاء إدخال رمز الدخول للوصول إلى النظام</p>
+
+        <div id="errorBox" class="error-msg"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="passcode">رمز الدخول:</label>
+                <input type="password" id="passcode" maxlength="20" placeholder="••••••" required autocomplete="off">
+            </div>
+            <button type="submit" class="btn">دخول للنظام</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const passcode = document.getElementById('passcode').value;
+            const errorBox = document.getElementById('errorBox');
+            
+            errorBox.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ passcode })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    errorBox.textContent = data.error || 'رمز الدخول غير صحيح';
+                    errorBox.style.display = 'block';
+                }
+            } catch (err) {
+                errorBox.textContent = 'حدث خطأ في الاتصال بالخادم';
+                errorBox.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
