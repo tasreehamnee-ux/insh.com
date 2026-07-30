@@ -907,6 +907,19 @@
                 });
             }
             
+            // Force table container and table to 1600px
+            const tableContainer = element.querySelector('.form-styled-table-container');
+            const originalTableContainerStyle = tableContainer ? tableContainer.style.cssText : '';
+            if (tableContainer) {
+                tableContainer.style.cssText += 'width: 1600px !important; max-width: 1600px !important; overflow: visible !important;';
+            }
+            
+            const table = element.querySelector('.form-styled-table');
+            const originalTableStyle = table ? table.style.cssText : '';
+            if (table) {
+                table.style.cssText += 'width: 1600px !important; min-width: 1600px !important; table-layout: fixed !important;';
+            }
+            
             // Temporarily make table headers and cells bold & clear (keeping th background blue and text white)
             const tableHeaders = element.querySelectorAll('.form-styled-table th');
             const tableCells = element.querySelectorAll('.form-styled-table td');
@@ -977,6 +990,12 @@
             element.style.cssText = originalStyle;
             if (header) {
                 header.style.cssText = originalHeaderStyle;
+            }
+            if (tableContainer) {
+                tableContainer.style.cssText = originalTableContainerStyle;
+            }
+            if (table) {
+                table.style.cssText = originalTableStyle;
             }
             originalTitlesStyles.forEach(item => {
                 item.el.style.cssText = item.cssText;
