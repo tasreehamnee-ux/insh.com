@@ -934,8 +934,14 @@
             noPdfElements.forEach(el => el.style.display = 'none');
             
             const originalStyle = element.style.cssText;
-            element.style.cssText += 'width:1600px; padding:20px; background:white;';
+            element.style.cssText += 'width:1550px; box-sizing:border-box; padding:15px; background:white;';
             
+            const blockContent = element.querySelector('.form-block-content');
+            const originalBlockContentStyle = blockContent ? blockContent.style.cssText : '';
+            if (blockContent) {
+                blockContent.style.cssText += 'padding: 10px 0 !important; margin: 0 !important; width: 100% !important; box-sizing: border-box !important;';
+            }
+
             // Temporarily make header white with dark text
             const header = element.querySelector('.form-block-header');
             const originalHeaderStyle = header ? header.style.cssText : '';
@@ -949,32 +955,34 @@
                 });
             }
             
-            // Force table container and table to 1600px
+            // Force table container and table to 100% of 1550px
             const tableContainer = element.querySelector('.form-styled-table-container');
             const originalTableContainerStyle = tableContainer ? tableContainer.style.cssText : '';
             if (tableContainer) {
-                tableContainer.style.cssText += 'width: 1600px !important; max-width: 1600px !important; overflow: visible !important;';
+                tableContainer.style.cssText += 'width: 100% !important; max-width: 100% !important; overflow: visible !important; margin: 0 !important; padding: 0 !important;';
             }
             
             const table = element.querySelector('.form-styled-table');
             const originalTableStyle = table ? table.style.cssText : '';
             if (table) {
-                table.style.cssText += 'width: 1600px !important; min-width: 1600px !important; table-layout: fixed !important;';
+                table.style.cssText += 'width: 100% !important; min-width: 100% !important; table-layout: fixed !important; box-sizing: border-box !important;';
             }
             
-            // Temporarily make table headers and cells bold & clear
+            // Temporarily make table headers and cells bold & clear with balanced column widths
             const tableHeaders = element.querySelectorAll('.form-styled-table th');
             const tableCells = element.querySelectorAll('.form-styled-table td');
             let originalTableStyles = [];
             
-            tableHeaders.forEach(th => {
+            const colWidths = ['3%', '22%', '9%', '8%', '9%', '9%', '9%', '11%', '11%', '9%'];
+            tableHeaders.forEach((th, idx) => {
                 originalTableStyles.push({ el: th, cssText: th.style.cssText });
-                th.style.cssText += 'font-weight: bold !important; font-size: 18px !important; padding: 15px !important;';
+                const widthStyle = colWidths[idx] ? `width: ${colWidths[idx]} !important;` : '';
+                th.style.cssText += `font-weight: bold !important; font-size: 17px !important; padding: 12px 6px !important; ${widthStyle}`;
             });
             
             tableCells.forEach(td => {
                 originalTableStyles.push({ el: td, cssText: td.style.cssText });
-                td.style.cssText += 'color: #000000 !important; font-weight: bold !important; font-size: 16px !important; border: 2px solid #a0aec0 !important; padding: 12px !important;';
+                td.style.cssText += 'color: #000000 !important; font-weight: bold !important; font-size: 15px !important; border: 2px solid #a0aec0 !important; padding: 10px 4px !important; word-wrap: break-word !important;';
             });
             
             // Pagination logic: Get rows and split them into chunks of 8
@@ -1006,13 +1014,12 @@
                     scale: 2,
                     useCORS: true,
                     backgroundColor: '#ffffff',
-                    windowWidth: 1600
+                    windowWidth: 1550
                 });
                 
                 const imgData = canvas.toDataURL('image/png');
                 const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                const margin = 10;
+                const margin = 8;
                 const availableWidth = pdfWidth - (margin * 2);
                 
                 const imgWidth = canvas.width;
@@ -1030,6 +1037,9 @@
             // Restore styles and rows visibility
             rows.forEach(r => r.style.display = '');
             element.style.cssText = originalStyle;
+            if (blockContent) {
+                blockContent.style.cssText = originalBlockContentStyle;
+            }
             if (header) {
                 header.style.cssText = originalHeaderStyle;
             }
