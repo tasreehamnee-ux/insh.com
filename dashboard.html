@@ -844,7 +844,7 @@
                 showToast('⏳ جاري إعداد ملف PDF...', 'info');
                 const element = document.getElementById(elementId);
                 
-                const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                const pdf = new window.jspdf.jsPDF('l', 'mm', 'a4');
                 await renderElementToPdfPaginated(element, pdf, true);
                 
                 pdf.save(`استمارة_${governorate}_${month}_تراكمي.pdf`);
@@ -866,7 +866,11 @@
             showToast('⏳ جاري إعداد ملف PDF التراكمي الموحد...', 'info');
             
             try {
-                const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                const pdf = new window.jspdf.jsPDF({
+                    orientation: 'l',
+                    unit: 'mm',
+                    format: [297, 210] // Explicit Landscape A4
+                });
                 
                 let isFirstPage = true;
                 for (let i = 0; i < blocks.length; i++) {
@@ -946,7 +950,8 @@
                 const canvas = await html2canvas(element, {
                     scale: 2,
                     useCORS: true,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    windowWidth: 1600
                 });
                 
                 const imgData = canvas.toDataURL('image/png');
@@ -954,13 +959,14 @@
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 const margin = 10;
                 const availableWidth = pdfWidth - (margin * 2);
-                const availableHeight = pdfHeight - (margin * 2);
                 
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
-                const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
                 
-                const imgX = margin + (availableWidth - imgWidth * ratio) / 2;
+                // Force width to perfectly fit the page margins
+                const ratio = availableWidth / imgWidth;
+                
+                const imgX = margin;
                 const imgY = margin;
                 
                 pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
