@@ -554,13 +554,18 @@
         // Fetch Dashboard Data (Unfiltered master copy)
         async function loadDashboardData() {
             try {
-                const response = await fetch('/api/submissions');
-                allSubmissionsMaster = await response.json();
+                const FIREBASE_URL = 'https://inshetaa-default-rtdb.firebaseio.com/db/submissions.json';
+                const response = await fetch(FIREBASE_URL);
+                const data = await response.json();
                 
-                if (!Array.isArray(allSubmissionsMaster)) {
-                    console.error('Expected array from submissions API, but got:', allSubmissionsMaster);
-                    document.getElementById('statsSubmissions').textContent = '0';
-                    return;
+                allSubmissionsMaster = [];
+                if (data) {
+                    for (const key in data) {
+                        if (data[key]) {
+                            allSubmissionsMaster.push({ fbKey: key, ...data[key] });
+                        }
+                    }
+                    allSubmissionsMaster.sort((a,b) => new Date(b.submissionDate || 0) - new Date(a.submissionDate || 0));
                 }
                 
                 document.getElementById('statsSubmissions').textContent = allSubmissionsMaster.length;
@@ -646,11 +651,14 @@
             const month = document.getElementById('filterMonth').value;
             const governorate = document.getElementById('filterGov').value;
 
-            let query = `?user=${encodeURIComponent(user)}&month=${encodeURIComponent(month)}&governorate=${encodeURIComponent(governorate)}`;
-            
             try {
-                const response = await fetch(`/api/submissions${query}`);
-                filteredSubmissionsList = await response.json();
+                // Filter locally from the master list fetched via Firebase
+                filteredSubmissionsList = allSubmissionsMaster.filter(sub => {
+                    const matchUser = !user || sub.userName === user;
+                    const matchMonth = !month || sub.month === month;
+                    const matchGov = !governorate || sub.governorate === governorate;
+                    return matchUser && matchMonth && matchGov;
+                });
 
                 const container = document.getElementById('groupedTablesContainer');
                 container.innerHTML = '';
@@ -798,9 +806,13 @@
 
         // Delete single submission
         async function deleteSubmission(id) {
+            const sub = allSubmissionsMaster.find(s => s.id === id);
+            if (!sub || !sub.fbKey) return;
+            
             if (confirm('هل أنت متأكد من حذف هذه الاستمارة بالكامل؟ سيؤدي ذلك لحذف جميع الأنشطة المرفقة بها.')) {
                 try {
-                    const response = await fetch(`/api/submissions/${id}`, { method: 'DELETE' });
+                    const FIREBASE_URL = `https://inshetaa-default-rtdb.firebaseio.com/db/submissions/${sub.fbKey}.json`;
+                    const response = await fetch(FIREBASE_URL, { method: 'DELETE' });
                     if (response.ok) {
                         showToast('تم حذف الاستمارة بنجاح');
                         await loadDashboardData();
