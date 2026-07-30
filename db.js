@@ -30,47 +30,32 @@ function readDb() {
 }
 
 // Background sync to Firebase
-function triggerCloudSave() {
+async function triggerCloudSave() {
     if (!FIREBASE_URL) return;
-    
-    if (isSaving) {
-        needsSave = true;
-        return;
-    }
 
-    isSaving = true;
-    needsSave = false;
-
-    fetch(FIREBASE_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dbCache)
-    })
-    .then(res => {
+    try {
+        const res = await fetch(FIREBASE_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dbCache)
+        });
         if (!res.ok) {
             console.error('Failed to save to Firebase, status:', res.status);
         }
-    })
-    .catch(err => {
+    } catch (err) {
         console.error('Error saving to Firebase:', err);
-    })
-    .finally(() => {
-        isSaving = false;
-        if (needsSave) {
-            triggerCloudSave();
-        }
-    });
+    }
 }
 
 // Helper to write database
-function writeDb(data) {
+async function writeDb(data) {
     dbCache = data;
     try {
         fs.writeFile(DB_PATH, JSON.stringify(dbCache, null, 4), 'utf8', () => {});
     } catch (error) {
         console.error('Error writing local database backup:', error);
     }
-    triggerCloudSave();
+    await triggerCloudSave();
     return true;
 }
 
@@ -135,7 +120,7 @@ function getUsers() {
     return db.users;
 }
 
-function addUser(name, passcode, department, section) {
+async function addUser(name, passcode, department, section) {
     const db = readDb();
     // Check if passcode is already used
     if (db.users.some(u => u.passcode === passcode)) {
@@ -150,11 +135,11 @@ function addUser(name, passcode, department, section) {
         role: 'employee'
     };
     db.users.push(newUser);
-    writeDb(db);
+    await writeDb(db);
     return newUser;
 }
 
-function deleteUser(userId) {
+async function deleteUser(userId) {
     const db = readDb();
     const index = db.users.findIndex(u => u.id === userId);
     if (index === -1) return false;
@@ -162,7 +147,7 @@ function deleteUser(userId) {
         throw new Error('لا يمكن حذف حساب مدير النظام الرئيسي');
     }
     db.users.splice(index, 1);
-    writeDb(db);
+    await writeDb(db);
     return true;
 }
 
@@ -177,7 +162,7 @@ function getSubmissions() {
     return db.submissions;
 }
 
-function addSubmission(userId, userName, governorate, month, rows) {
+async function addSubmission(userId, userName, governorate, month, rows) {
     const db = readDb();
     const newSubmission = {
         id: 'sub_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
@@ -189,27 +174,27 @@ function addSubmission(userId, userName, governorate, month, rows) {
         submissionDate: new Date().toISOString()
     };
     db.submissions.push(newSubmission);
-    writeDb(db);
+    await writeDb(db);
     return newSubmission;
 }
 
-function deleteSubmission(subId) {
+async function deleteSubmission(subId) {
     const db = readDb();
     const index = db.submissions.findIndex(s => s.id === subId);
     if (index === -1) return false;
     db.submissions.splice(index, 1);
-    writeDb(db);
+    await writeDb(db);
     return true;
 }
 
-function updateAdminPasscode(newPasscode) {
+async function updateAdminPasscode(newPasscode) {
     const db = readDb();
     const admin = db.users.find(u => u.role === 'admin');
     if (!admin) {
         throw new Error('لم يتم العثور على حساب مدير النظام');
     }
     admin.passcode = newPasscode;
-    writeDb(db);
+    await writeDb(db);
     return true;
 }
 

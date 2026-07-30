@@ -1,0 +1,1766 @@
+{
+    "submissions": [
+        {
+            "governorate": "البصرة",
+            "id": "sub_1784478325992_0ea26",
+            "month": "تموز",
+            "rows": [
+                {
+                    "beneficiary": "الاتحاد العراقي",
+                    "completion": "",
+                    "date": "2026-07-18",
+                    "department": "المتابعه",
+                    "employees": "7",
+                    "planned": "",
+                    "rowNum": "1",
+                    "section": "مكتب التصاريح",
+                    "supporting": "مديرية شباب ورياضه البصرة مع قوة امن الملاعب",
+                    "tasks": "مباراة وديه بين منتخب شباب العراق ونادي الميناء على الملعب الشمالي"
+                }
+            ],
+            "submissionDate": "2026-07-19T16:25:25.992Z",
+            "userId": "public_employee",
+            "userName": "مها عبدالحسين غانم"
+        },
+        {
+            "governorate": "البصرة",
+            "id": "sub_1783501245282_ipm9v",
+            "month": "تموز",
+            "rows": [
+                {
+                    "beneficiary": "",
+                    "completion": "",
+                    "date": "2026-07-07",
+                    "department": "المتابعه",
+                    "employees": "4",
+                    "planned": "",
+                    "rowNum": "1",
+                    "section": "مكتب التصاريح",
+                    "supporting": "مديرية شباب ورياضه البصرة",
+                    "tasks": "باشراف ومتابعه مكتب التصاريح قامت شعبه المخازن بتصفيه وترتيب المواد المخزنية "
+                },
+                {
+                    "beneficiary": "",
+                    "completion": "",
+                    "date": "2026-07-07",
+                    "department": "المتابعه",
+                    "employees": "5",
+                    "planned": "",
+                    "rowNum": "2",
+                    "section": "مكتب التصاريح",
+                    "supporting": "مديرية شباب ورياضه البصرة",
+                    "tasks": "ياشراف ومتابعه مكتب التصاريح جرى صيانه اقفال الابواب ضمن اعمال شعبة المدني"
+                }
+            ],
+            "submissionDate": "2026-07-08T09:00:45.282Z",
+            "userId": "public_employee",
+            "userName": "مها عبد الحسين غانم"
+        },
+        {
+            "governorate": "البصرة",
+            "id": "sub_1783500941571_7qzgp",
+            "month": "تموز",
+            "rows": [
+                {
+                    "beneficiary": "المدارس الكروية",
+                    "completion": "",
+                    "date": "2026-07-06",
+                    "department": "المتابعه",
+                    "employees": "6",
+                    "planned": "",
+                    "rowNum": "1",
+                    "section": "مكتب تصاريح البصرة",
+                    "supporting": "ة امن الملاعب",
+                    "tasks": "تدريبات المدرسه الكرويه على ملعب التدريب الجنوبي"
+                },
+                {
+                    "beneficiary": "",
+                    "completion": "",
+                    "date": "2026-07-06",
+                    "department": "المتابعه",
+                    "employees": "4",
+                    "planned": "",
+                    "rowNum": "2",
+                    "section": "مكتب التصاريح",
+                    "supporting": "مديرية شباب ورياضه البصرة مع قوة امن الملاعب",
+                    "tasks": "باشراف ومتابعه مكتب التصاريح اجرت شعبه الزراعه. تبديل  صمام المياة الخاص بملعب التدريب الجنوبي"
+                },
+                {
+                    "beneficiary": "",
+                    "completion": "",
+                    "date": "2026-07-07",
+                    "department": "المتابعه",
+                    "employees": "5",
+                    "planned": "",
+                    "rowNum": "3",
+                    "section": "مكتب التصاريح",
+                    "supporting": "مديرية شباب ورياضه البصرة مع قوة امن الملاعب",
+                    "tasks": "تمرين حكام البصرة استعدادا للاختبارات"
+                }
+            ],
+            "submissionDate": "2026-07-08T08:55:41.571Z",
+            "userId": "public_employee",
+            "userName": "مها عبدالحسين غانم"
+        },
+        {
+            "governorate": "البصرة",
+            "id": "sub_1783498651278_8uze0",
+            "month": "تموز",
+            "rows": [
+                {
+                    "beneficiary": "المدارس الكروية",
+                    "completion": "",
+                    "date": "2026-07-06",
+                    "department": "المتابعه",
+                    "employees": "6",
+                    "planned": "",
+                    "rowNum": "1",
+                    "section": "مكتب تصاريح البصرة",
+                    "supporting": "مديرية شباب ورياضه البصرة مع قوة امن الملاعب",
+                    "tasks": "تدريبات المدرسه الكرويه على ملعب التدريب الجنوبي"
+                }
+            ],
+            "submissionDate": "2026-07-08T08:17:31.278Z",
+            "userId": "public_employee",
+            "userName": "مها عبدالحسين غانم"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1783248059941_z44v0",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "الاقاليم والمحافظات ملعب الغزالية الكبير ",
+                    "completion": "10",
+                    "date": "2026-06-03",
+                    "department": "المتابعة",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "لعبة فرق شعبية في ملعب الغزالية "
+                },
+                {
+                    "beneficiary": "الاقاليم والمحافظات ملعب الغزالية الكبير ",
+                    "completion": "10",
+                    "date": "2026-06-07",
+                    "department": "المتابعة",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "وزارة الشباب والرياضة",
+                    "tasks": "فرق شعبية في ملعب الغزالية "
+                },
+                {
+                    "beneficiary": "الاقاليم والمحافظات ملعب الغزالية الكبير ",
+                    "completion": "10",
+                    "date": "2026-06-08",
+                    "department": "المتابعة",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "وزارة الشباب والرياضة",
+                    "tasks": "اكاديمة الغزالية "
+                },
+                {
+                    "beneficiary": "الاقاليم والمحافظات ملعب الغزالية الكبير ",
+                    "completion": "10",
+                    "date": "2026-06-14",
+                    "department": "المتابعة",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية",
+                    "supporting": "وزارة الشباب والرياضة",
+                    "tasks": "اكاديمة الغزالية "
+                },
+                {
+                    "beneficiary": "الاقاليم والمحافظات ملعب الغزالية الكبير ",
+                    "completion": "10",
+                    "date": "2026-07-21",
+                    "department": "المتابعة",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الامنية",
+                    "supporting": "وزارة الشباب والرياضة",
+                    "tasks": "اكاديمية الغزالية"
+                }
+            ],
+            "submissionDate": "2026-07-05T10:40:59.941Z",
+            "userId": "public_employee",
+            "userName": "حسين علي سلمان عبد"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1783240684644_cx0l7",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "الاتحاد العراقي لكرة القدم ",
+                    "completion": "1",
+                    "date": "2026-06-02",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "لجنة الاشراف والمتابعة ",
+                    "tasks": "مباراة ختام دوري نجوم العراق بين نادي القوة الجوية ونادي زاخو على ملعب المدينة الدولي "
+                },
+                {
+                    "beneficiary": "وزارة الداخلية ",
+                    "completion": "1",
+                    "date": "2026-06-21",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "لجنة الاشراف والمتابعة ",
+                    "tasks": "دورة قوة امن الملاعب على ملعب المدينة الدولي "
+                }
+            ],
+            "submissionDate": "2026-07-05T08:38:04.644Z",
+            "userId": "public_employee",
+            "userName": "سيف ياس خضير عباس"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1783240655009_d3xp6",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "الاتحاد العراقي لكرة القدم ",
+                    "completion": "1",
+                    "date": "2026-06-02",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "لجنة الاشراف والمتابعة ",
+                    "tasks": "مباراة ختام دوري نجوم العراق بين نادي القوة الجوية ونادي زاخو على ملعب المدينة الدولي "
+                },
+                {
+                    "beneficiary": "وزارة الداخلية ",
+                    "completion": "1",
+                    "date": "2026-06-21",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "لجنة الاشراف والمتابعة ",
+                    "tasks": "دورة قوة امن الملاعب على ملعب المدينة الدولي "
+                }
+            ],
+            "submissionDate": "2026-07-05T08:37:35.009Z",
+            "userId": "public_employee",
+            "userName": "سيف ياس خضير عباس"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1783240216168_ej5xq",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "الاتحاد العراقي لكرة القدم ",
+                    "completion": "1",
+                    "date": "2026-06-02",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "لجنة الاشراف والمتابعة ",
+                    "tasks": "مباراة ختام دوري نجوم العراق بين نادي القوة الجوية ونادي زاخو على ملعب المدينة الدولي "
+                },
+                {
+                    "beneficiary": "وزارة الداخلية ",
+                    "completion": "1",
+                    "date": "2026-06-15",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية ",
+                    "supporting": "لجنة الاشراف والمتابعة ",
+                    "tasks": "دورة قوة امن الملاعب على ملعب المدينة الدولي "
+                }
+            ],
+            "submissionDate": "2026-07-05T08:30:16.168Z",
+            "userId": "public_employee",
+            "userName": "سيف ياس خضير عباس"
+        },
+        {
+            "governorate": "نينوى",
+            "id": "sub_1782818031763_hds1l",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-06",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة كرة اليد "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-08",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة التايكوندو "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٥",
+                    "date": "2026-06-11",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة التنس "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-15",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة كرة السلة "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٥",
+                    "date": "2026-06-21",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الورشة التوعوية بعنوان(السلوكيات اليومية التي تساعد في الحفاظ على بيئة صحية خالية من التلوث)"
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-23",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة الطاولة "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-27",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة رفع الأثقال "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-29",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة الجمباز "
+                }
+            ],
+            "submissionDate": "2026-06-30T11:13:51.763Z",
+            "userId": "public_employee",
+            "userName": "هيثم احمد محمد"
+        },
+        {
+            "governorate": "نينوى",
+            "id": "sub_1782817983355_rqclk",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-06",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة كرة اليد "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-08",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة التايكوندو "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٥",
+                    "date": "2026-06-11",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة التنس "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-15",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة كرة السلة "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٥",
+                    "date": "2026-06-21",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الورشة التوعوية بعنوان(السلوكيات اليومية التي تساعد في الحفاظ على بيئة صحية خالية من التلوث)"
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-23",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة الطاولة "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-27",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة رفع الأثقال "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في نينوى ",
+                    "completion": "٧٠",
+                    "date": "2026-06-29",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الأمنية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "متابعة الوحدات التدريبية لمدرسة الجمباز "
+                }
+            ],
+            "submissionDate": "2026-06-30T11:13:03.355Z",
+            "userId": "public_employee",
+            "userName": "هيثم احمد محمد"
+        },
+        {
+            "governorate": "القادسية",
+            "id": "sub_1782809329249_bv19p",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-04",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "جولة ليلية لزيارة الى قسم الموهبة الرياضية "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-10",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "الوحدة التدريبية لكرة السلة "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-08",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "الوحدة التدريبية لكرة اليد"
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-07",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "الوحدة التدريبية لمدرسة المصارعة"
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-17",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "الوحدة التدريبية لمدرسة السلة"
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-17",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "الوحدة التدريبية لمدرسة السلة"
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-19",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "حضور مباراة ودية لكرة سلة بين موهبة الديوانية والحمزة "
+                },
+                {
+                    "beneficiary": "قسم الموهبة الرياضية في الديوانية ",
+                    "completion": "1",
+                    "date": "2026-06-30",
+                    "department": "المتابعة ",
+                    "employees": "1",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الامنية في الديوانية ",
+                    "supporting": "وزارة الشباب والرياضة ",
+                    "tasks": "زيارة قسم الموهبة الرياضية في الديوانية "
+                }
+            ],
+            "submissionDate": "2026-06-30T08:48:49.249Z",
+            "userId": "public_employee",
+            "userName": "قحطان حمزة جياد"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1782809292550_e1lo1",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-24",
+                    "department": "فنون",
+                    "employees": "8",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "الفنون المسرحيه والسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "اكتشاف المواهب الثقافيه والفنيه"
+                },
+                {
+                    "beneficiary": "‏وزاره الشباب والرياضة ",
+                    "completion": "‏نسبة100/100",
+                    "date": "2026-06-15",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "الفنون المسرحي والسينمائية ",
+                    "supporting": "دائره. ثقافه وفنون الشباب",
+                    "tasks": "فن الصوره الرقميه والفوتغرافيه المعاصر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-17",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "الفنون المسرحيوالسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "فن الصور الفوتغرافيه والاعلام الرقمي"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-30",
+                    "department": "النتاجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "الثقافه",
+                    "supporting": "مديريات الشباب والرياضه",
+                    "tasks": "ورشه تطوير مهارات الموهبين في كتابه والقاء القصه القصيره"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-15",
+                    "department": "الكل",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "الثقافه",
+                    "supporting": "منظمات المجتمع المدني",
+                    "tasks": "احتفاء بيوم سبايكر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "النتجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الرصافه",
+                    "tasks": "ورشه توعويه لاكتشاف الموهبين"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "المكتبات",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الكرخ",
+                    "tasks": "ورشه توعويه لاكتشاف الموهوبين"
+                },
+                {
+                    "beneficiary": "وزارة الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-03",
+                    "department": "الفنون المسرحية",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "الفنون المسرحية والسينمائية ",
+                    "supporting": "مديرية شباب ورياضة الرصافة",
+                    "tasks": "يوم الغدير"
+                }
+            ],
+            "submissionDate": "2026-06-30T08:48:12.551Z",
+            "userId": "public_employee",
+            "userName": "بشير حسن محمد"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1782809070861_pdhbg",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-24",
+                    "department": "فنون",
+                    "employees": "8",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "الفنون المسرحيه والسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "اكتشاف المواهب الثقافيه والفنيه"
+                },
+                {
+                    "beneficiary": "‏وزاره الشباب والرياضة ",
+                    "completion": "‏نسبة100/100",
+                    "date": "2026-06-15",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "الفنون المسرحي والسينمائية ",
+                    "supporting": "دائره. ثقافه وفنون الشباب",
+                    "tasks": "فن الصوره الرقميه والفوتغرافيه المعاصر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-17",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "الفنون المسرحيوالسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "فن الصور الفوتغرافيه والاعلام الرقمي"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-30",
+                    "department": "النتاجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "الثقافه",
+                    "supporting": "مديريات الشباب والرياضه",
+                    "tasks": "ورشه تطوير مهارات الموهبين في كتابه والقاء القصه القصيره"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-15",
+                    "department": "الكل",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "الثقافه",
+                    "supporting": "منظمات المجتمع المدني",
+                    "tasks": "احتفاء بيوم سبايكر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "النتجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الرصافه",
+                    "tasks": "ورشه توعويه لاكتشاف الموهبين"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "المكتبات",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الكرخ",
+                    "tasks": "ورشه توعويه لاكتشاف الموهوبين"
+                },
+                {
+                    "beneficiary": "وزارة الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-03",
+                    "department": "الفنون المسرحية",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "الفنون المسرحية والسينمائية ",
+                    "supporting": "مديرية شباب ورياضة الرصافة",
+                    "tasks": "يوم الغدير"
+                }
+            ],
+            "submissionDate": "2026-06-30T08:44:30.861Z",
+            "userId": "public_employee",
+            "userName": "بشير حسن محمد"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1782808260168_ucq07",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-24",
+                    "department": "فنون",
+                    "employees": "8",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "الفنون المسرحيه والسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "اكتشاف المواهب الثقافيه والفنيه"
+                },
+                {
+                    "beneficiary": "‏وزاره الشباب والرياضة ",
+                    "completion": "‏نسبة100/100",
+                    "date": "2026-06-15",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "الفنون المسرحي والسينمائية ",
+                    "supporting": "دائره. ثقافه وفنون الشباب",
+                    "tasks": "فن الصوره الرقميه والفوتغرافيه المعاصر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-17",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "الفنون المسرحيوالسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "فن الصور الفوتغرافيه والاعلام الرقمي"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-30",
+                    "department": "النتاجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "الثقافه",
+                    "supporting": "مديريات الشباب والرياضه",
+                    "tasks": "ورشه تطوير مهارات الموهبين في كتابه والقاء القصه القصيره"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-15",
+                    "department": "الكل",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "الثقافه",
+                    "supporting": "منظمات المجتمع المدني",
+                    "tasks": "احتفاء بيوم سبايكر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "النتجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الرصافه",
+                    "tasks": "ورشه توعويه لاكتشاف الموهبين"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "المكتبات",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الكرخ",
+                    "tasks": "ورشه توعويه لاكتشاف الموهوبين"
+                },
+                {
+                    "beneficiary": "وزارة الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-03",
+                    "department": "الفنون المسرحية",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "الفنون المسرحية والسينمائية ",
+                    "supporting": "مديرية شباب ورياضة الرصافة",
+                    "tasks": "يوم الغدير"
+                }
+            ],
+            "submissionDate": "2026-06-30T08:31:00.168Z",
+            "userId": "public_employee",
+            "userName": "بشير حسن محمد"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1782808230893_eios6",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-24",
+                    "department": "فنون",
+                    "employees": "8",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "الفنون المسرحيه والسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "اكتشاف المواهب الثقافيه والفنيه"
+                },
+                {
+                    "beneficiary": "‏وزاره الشباب والرياضة ",
+                    "completion": "‏نسبة100/100",
+                    "date": "2026-06-15",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "الفنون المسرحي والسينمائية ",
+                    "supporting": "دائره. ثقافه وفنون الشباب",
+                    "tasks": "فن الصوره الرقميه والفوتغرافيه المعاصر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب والرياضه",
+                    "completion": "100/100",
+                    "date": "2026-06-17",
+                    "department": "فنون",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "الفنون المسرحيوالسينمائيه",
+                    "supporting": "دائره ثقافه وفنون الشباب",
+                    "tasks": "فن الصور الفوتغرافيه والاعلام الرقمي"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-30",
+                    "department": "النتاجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "الثقافه",
+                    "supporting": "مديريات الشباب والرياضه",
+                    "tasks": "ورشه تطوير مهارات الموهبين في كتابه والقاء القصه القصيره"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-15",
+                    "department": "الكل",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "الثقافه",
+                    "supporting": "منظمات المجتمع المدني",
+                    "tasks": "احتفاء بيوم سبايكر"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "النتجات الادبيه",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الرصافه",
+                    "tasks": "ورشه توعويه لاكتشاف الموهبين"
+                },
+                {
+                    "beneficiary": "وزاره الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-14",
+                    "department": "المكتبات",
+                    "employees": "6",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "الثقافه",
+                    "supporting": "مديريه شباب ورياضه الكرخ",
+                    "tasks": "ورشه توعويه لاكتشاف الموهوبين"
+                },
+                {
+                    "beneficiary": "وزارة الشباب",
+                    "completion": "100/100",
+                    "date": "2026-06-03",
+                    "department": "الفنون المسرحية",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "الفنون المسرحية والسينمائية ",
+                    "supporting": "مديرية شباب ورياضة الرصافة",
+                    "tasks": "يوم الغدير"
+                }
+            ],
+            "submissionDate": "2026-06-30T08:30:30.893Z",
+            "userId": "public_employee",
+            "userName": "بشير حسن محمد"
+        },
+        {
+            "governorate": "ميسان",
+            "id": "sub_1782760706785_y94pn",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "نادي نفط ميسان",
+                    "completion": "1",
+                    "date": "2026-06-01",
+                    "department": "المتابعة",
+                    "employees": "3",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية",
+                    "supporting": "وزارة الشباب و الرياضة",
+                    "tasks": "متابعة اكمال شاشة ملعب ميسان الاولمبي "
+                },
+                {
+                    "beneficiary": "وزارة الشباب و الرياضة ",
+                    "completion": "1",
+                    "date": "2026-06-03",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قسم الموهبة الرياضية في ميسان",
+                    "tasks": "الوحدة التدربيية لمدرسة كرة القدم "
+                },
+                {
+                    "beneficiary": "وزارة الشباب و الرياضة ",
+                    "completion": "1",
+                    "date": "2026-06-08",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قسم الموهبة الرياضية في ميسان",
+                    "tasks": "الوحدة التدربيية لمدرسة كرة القدم "
+                },
+                {
+                    "beneficiary": "",
+                    "completion": "1",
+                    "date": "2026-06-10",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية",
+                    "supporting": "",
+                    "tasks": "جولات ميدانية في ملعب ميسان الاولمبي "
+                },
+                {
+                    "beneficiary": "وزارة الشباب و الرياضة ",
+                    "completion": "1",
+                    "date": "2026-06-15",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قسم الموهبة الرياضية في ميسان",
+                    "tasks": "الوحدة التدربيية لمدرسة كرة القدم "
+                },
+                {
+                    "beneficiary": "وزارة الشباب و الرياضة ",
+                    "completion": "1",
+                    "date": "2026-06-17",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قسم الموهبة الرياضية في ميسان",
+                    "tasks": "تدريبات مدرسة المصارعة"
+                },
+                {
+                    "beneficiary": "وزارة الشباب و الرياضة ",
+                    "completion": "1",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قسم الموهبة الرياضية في ميسان",
+                    "tasks": "الوحدة التدربيية لمدرسة كرة القدم "
+                },
+                {
+                    "beneficiary": "وزارة الشباب و الرياضة ",
+                    "completion": "1",
+                    "date": "2026-06-29",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قسم الموهبة الرياضية في ميسان",
+                    "tasks": "الوحدة التدربيية لمدرسة كرة القدم "
+                }
+            ],
+            "submissionDate": "2026-06-29T19:18:26.785Z",
+            "userId": "public_employee",
+            "userName": "زيد علي جنيح"
+        },
+        {
+            "governorate": "بابل",
+            "id": "sub_1782662221911_rz7gw",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "موهبة. بابل",
+                    "completion": "",
+                    "date": "2026-06-27",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-27",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-27",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-27",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة السلة"
+                }
+            ],
+            "submissionDate": "2026-06-28T15:57:01.911Z",
+            "userId": "public_employee",
+            "userName": "هدى مجيد احمد"
+        },
+        {
+            "governorate": "بغداد",
+            "id": "sub_1782387238078_r27ph",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "اتحاد العاب القوى",
+                    "completion": "ض",
+                    "date": "2026-06-02",
+                    "department": "بغداد",
+                    "employees": "4",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "المتابعة ",
+                    "supporting": "لايرجد",
+                    "tasks": "تدريبات المنتخب الوطني لالعاب القوى"
+                }
+            ],
+            "submissionDate": "2026-06-25T11:33:58.078Z",
+            "userId": "public_employee",
+            "userName": "سامر ستار ياسر"
+        },
+        {
+            "governorate": "بابل",
+            "id": "sub_1782316719626_k63vr",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-17",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-17",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة رفع الاثقال"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة ذوي الهمم "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة رفع الاثقال "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة السلة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "9",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "10",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية  مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "11",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-24",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "12",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة ذوي الهمم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-24",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "13",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                }
+            ],
+            "submissionDate": "2026-06-24T15:58:39.626Z",
+            "userId": "public_employee",
+            "userName": "هدى مجيد احمد"
+        },
+        {
+            "governorate": "بابل",
+            "id": "sub_1782316566858_qfu00",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-17",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-17",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة رفع الاثقال"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة ذوي الهمم "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة رفع الاثقال "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة السلة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "9",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "10",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية  مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "11",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-24",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "12",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة ذوي الهمم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-24",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "13",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                }
+            ],
+            "submissionDate": "2026-06-24T15:56:06.858Z",
+            "userId": "public_employee",
+            "userName": "هدى مجيد احمد"
+        },
+        {
+            "governorate": "بابل",
+            "id": "sub_1782316491901_uum7e",
+            "month": "حزيران",
+            "rows": [
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-17",
+                    "department": "المتابعة ",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "1",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-17",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "2",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة رفع الاثقال"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "3",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة ذوي الهمم "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "4",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة رفع الاثقال "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-19",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "5",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة السلة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "6",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "7",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة "
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-20",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "8",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "9",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة كرة الطاولة"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "10",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية  مدرسة التايكواندو"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-22",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "11",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-24",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "12",
+                    "section": "التصاريح الامنية",
+                    "supporting": "قاعة بابل 1000متفرج",
+                    "tasks": "الوحدات التدريبية مدرسة ذوي الهمم"
+                },
+                {
+                    "beneficiary": "موهبة بابل",
+                    "completion": "",
+                    "date": "2026-06-24",
+                    "department": "المتابعة",
+                    "employees": "2",
+                    "planned": "1",
+                    "rowNum": "13",
+                    "section": "التصاريح الامنية",
+                    "supporting": "ملعب الاسكان",
+                    "tasks": "الوحدات التدريبية مدرسة كرة القدم"
+                }
+            ],
+            "submissionDate": "2026-06-24T15:54:51.901Z",
+            "userId": "public_employee",
+            "userName": "هدى مجيد احمد"
+        },
+        {
+            "governorate": "البصرة",
+            "id": "sub_1785352532697_xmafe",
+            "month": "تموز",
+            "rows": [
+                {
+                    "beneficiary": "الاتحاد العراقي",
+                    "completion": "",
+                    "date": "2026-07-29",
+                    "department": "المتابعه",
+                    "employees": "6",
+                    "planned": "",
+                    "rowNum": "1",
+                    "section": "مكتب التصاريح",
+                    "supporting": "مديرية شباب ورياضه البصرة مع قوة امن الملاعب",
+                    "tasks": "تمرين نادي النفط على ملعب التدريب الشمالي"
+                }
+            ],
+            "submissionDate": "2026-07-29T19:15:32.697Z",
+            "userId": "public_employee",
+            "userName": "مها عبد الحسين"
+        }
+    ],
+    "users": [
+        {
+            "department": "إدارة النظام",
+            "id": "admin_default",
+            "name": "مدير النظام",
+            "passcode": "admin123",
+            "role": "admin",
+            "section": "القسم الأمني"
+        },
+        {
+            "id": "user_1785393084509_0nopv",
+            "name": "Test User",
+            "passcode": "9999",
+            "department": "Dept",
+            "section": "Sec",
+            "role": "employee"
+        }
+    ]
+}

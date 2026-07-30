@@ -106,7 +106,7 @@ app.get('/api/session', (req, res) => {
 });
 
 // Change Admin Passcode (Admin only)
-app.post('/api/admin/change-passcode', requireAdmin, (req, res) => {
+app.post('/api/admin/change-passcode', requireAdmin, async (req, res) => {
     const { currentPasscode, newPasscode } = req.body;
     if (!currentPasscode || !newPasscode) {
         return res.status(400).json({ error: 'الرجاء إدخال رمز الدخول الحالي والجديد' });
@@ -120,7 +120,7 @@ app.post('/api/admin/change-passcode', requireAdmin, (req, res) => {
             return res.status(400).json({ error: 'رمز الدخول الحالي غير صحيح' });
         }
 
-        db.updateAdminPasscode(newPasscode);
+        await db.updateAdminPasscode(newPasscode);
         res.json({ success: true, message: 'تم تغيير رمز الدخول بنجاح' });
     } catch (e) {
         console.error('Error changing admin passcode:', e);
@@ -131,14 +131,14 @@ app.post('/api/admin/change-passcode', requireAdmin, (req, res) => {
 // Form Submissions
 
 // Post Form (Public - No Auth required)
-app.post('/api/submit', (req, res) => {
+app.post('/api/submit', async (req, res) => {
     const { userName, governorate, month, rows } = req.body;
     if (!userName || !governorate || !month || !rows || !Array.isArray(rows) || rows.length === 0) {
         return res.status(400).json({ error: 'بيانات الاستمارة غير مكتملة أو فارغة' });
     }
 
     try {
-        const submission = db.addSubmission(
+        const submission = await db.addSubmission(
             'public_employee', 
             userName.trim(), 
             governorate, 
@@ -199,9 +199,9 @@ app.get('/api/my-submissions', (req, res) => {
 });
 
 // Delete Submission (Admin only)
-app.delete('/api/submissions/:id', requireAdmin, (req, res) => {
+app.delete('/api/submissions/:id', requireAdmin, async (req, res) => {
     try {
-        const success = db.deleteSubmission(req.params.id);
+        const success = await db.deleteSubmission(req.params.id);
         if (success) {
             res.json({ success: true });
         } else {
