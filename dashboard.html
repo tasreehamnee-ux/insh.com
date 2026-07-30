@@ -418,6 +418,52 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @media print {
+            @page {
+                size: A4 landscape !important;
+                margin: 5mm;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .nav-header, .sidebar, .filter-bar, .export-controls, .toast, .no-pdf, .action-buttons {
+                display: none !important;
+            }
+            .dashboard-container {
+                display: block !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .form-block-container {
+                box-shadow: none !important;
+                border: 1px solid #333 !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                width: 100% !important;
+            }
+            .form-styled-table-container {
+                overflow: visible !important;
+                width: 100% !important;
+            }
+            .form-styled-table {
+                width: 100% !important;
+                font-size: 11pt !important;
+                table-layout: fixed !important;
+            }
+            .form-styled-table th, .form-styled-table td {
+                padding: 4px 2px !important;
+                border: 1px solid #333 !important;
+            }
+        }
     </style>
 </head>
 <body>

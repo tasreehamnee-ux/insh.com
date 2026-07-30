@@ -418,6 +418,52 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @media print {
+            @page {
+                size: A4 landscape !important;
+                margin: 5mm;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                color: black !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .nav-header, .sidebar, .filter-bar, .export-controls, .toast, .no-pdf, .action-buttons {
+                display: none !important;
+            }
+            .dashboard-container {
+                display: block !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .form-block-container {
+                box-shadow: none !important;
+                border: 1px solid #333 !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                width: 100% !important;
+            }
+            .form-styled-table-container {
+                overflow: visible !important;
+                width: 100% !important;
+            }
+            .form-styled-table {
+                width: 100% !important;
+                font-size: 11pt !important;
+                table-layout: fixed !important;
+            }
+            .form-styled-table th, .form-styled-table td {
+                padding: 4px 2px !important;
+                border: 1px solid #333 !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -882,13 +928,13 @@
             }
         }
 
-        // Shared function to render a block into the PDF paginating every 12 rows
+        // Shared function to render a block into the PDF paginating every 8 rows
         async function renderElementToPdfPaginated(element, pdf, isFirstPage) {
             const noPdfElements = element.querySelectorAll('.no-pdf');
             noPdfElements.forEach(el => el.style.display = 'none');
             
             const originalStyle = element.style.cssText;
-            element.style.cssText += 'width:1100px; padding:20px; background:white;';
+            element.style.cssText += 'width:1600px; padding:20px; background:white;';
             
             // Temporarily make header white with dark text
             const header = element.querySelector('.form-block-header');
@@ -899,29 +945,42 @@
                 const subElements = header.querySelectorAll('h2, .banner-title, .subtitle, .meta-info');
                 subElements.forEach(el => {
                     originalTitlesStyles.push({ el: el, cssText: el.style.cssText });
-                    el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important; font-weight: bold !important;';
+                    el.style.cssText += 'color: #1e3c72 !important; text-shadow: none !important; opacity: 1 !important; font-weight: bold !important; font-size: 22px !important;';
                 });
             }
             
-            // Temporarily make table headers and cells bold & clear (keeping th background blue and text white)
+            // Force table container and table to 1600px
+            const tableContainer = element.querySelector('.form-styled-table-container');
+            const originalTableContainerStyle = tableContainer ? tableContainer.style.cssText : '';
+            if (tableContainer) {
+                tableContainer.style.cssText += 'width: 1600px !important; max-width: 1600px !important; overflow: visible !important;';
+            }
+            
+            const table = element.querySelector('.form-styled-table');
+            const originalTableStyle = table ? table.style.cssText : '';
+            if (table) {
+                table.style.cssText += 'width: 1600px !important; min-width: 1600px !important; table-layout: fixed !important;';
+            }
+            
+            // Temporarily make table headers and cells bold & clear
             const tableHeaders = element.querySelectorAll('.form-styled-table th');
             const tableCells = element.querySelectorAll('.form-styled-table td');
             let originalTableStyles = [];
             
             tableHeaders.forEach(th => {
                 originalTableStyles.push({ el: th, cssText: th.style.cssText });
-                th.style.cssText += 'font-weight: bold !important; font-size: 15px !important;';
+                th.style.cssText += 'font-weight: bold !important; font-size: 18px !important; padding: 15px !important;';
             });
             
             tableCells.forEach(td => {
                 originalTableStyles.push({ el: td, cssText: td.style.cssText });
-                td.style.cssText += 'color: #000000 !important; font-weight: bold !important; font-size: 14px !important; border: 2px solid #a0aec0 !important;';
+                td.style.cssText += 'color: #000000 !important; font-weight: bold !important; font-size: 16px !important; border: 2px solid #a0aec0 !important; padding: 12px !important;';
             });
             
-            // Pagination logic: Get rows and split them into chunks of 12
+            // Pagination logic: Get rows and split them into chunks of 8
             const tbody = element.querySelector('tbody');
             const rows = tbody ? Array.from(tbody.querySelectorAll('tr')) : [];
-            const itemsPerPage = 12;
+            const itemsPerPage = 8;
             const chunks = [];
             
             if (rows.length === 0) {
@@ -946,7 +1005,8 @@
                 const canvas = await html2canvas(element, {
                     scale: 2,
                     useCORS: true,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    windowWidth: 1600
                 });
                 
                 const imgData = canvas.toDataURL('image/png');
@@ -954,13 +1014,14 @@
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 const margin = 10;
                 const availableWidth = pdfWidth - (margin * 2);
-                const availableHeight = pdfHeight - (margin * 2);
                 
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
-                const ratio = Math.min(availableWidth / imgWidth, availableHeight / imgHeight);
                 
-                const imgX = margin + (availableWidth - imgWidth * ratio) / 2;
+                // Force width to perfectly fit the page margins in landscape
+                const ratio = availableWidth / imgWidth;
+                
+                const imgX = margin;
                 const imgY = margin;
                 
                 pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
@@ -971,6 +1032,12 @@
             element.style.cssText = originalStyle;
             if (header) {
                 header.style.cssText = originalHeaderStyle;
+            }
+            if (tableContainer) {
+                tableContainer.style.cssText = originalTableContainerStyle;
+            }
+            if (table) {
+                table.style.cssText = originalTableStyle;
             }
             originalTitlesStyles.forEach(item => {
                 item.el.style.cssText = item.cssText;
