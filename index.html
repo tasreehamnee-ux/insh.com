@@ -372,7 +372,7 @@
         <div class="controls">
             <div class="control-group">
                 <label>اسم الموظف الكامل:</label>
-                <input type="text" class="text-input" id="employeeNameInput" placeholder="أدخل اسمك الكامل" oninput="autoSave()">
+                <input type="text" class="text-input" id="employeeNameInput" placeholder="أدخل اسمك الكامل">
             </div>
 
             <div class="control-group">
@@ -486,12 +486,55 @@
             document.body.removeChild(tempSpan);
         }
 
+        const FIREBASE_DRAFTS_URL = 'https://inshetaa-default-rtdb.firebaseio.com/drafts';
+        let autoSaveTimeout = null;
+        let isRestoring = false;
+
+        async function loadDraftFromCloud(name) {
+            if (!name) return;
+            try {
+                isRestoring = true;
+                const response = await fetch(`${FIREBASE_DRAFTS_URL}/${encodeURIComponent(name)}.json`);
+                const data = await response.json();
+                
+                if (data && data.rows && data.rows.length > 0) {
+                    document.getElementById('governorateSelect').value = data.governorate || '';
+                    document.getElementById('monthSelect').value = data.month || '';
+                    updateHeader();
+                    
+                    const tbody = document.getElementById('tableBody');
+                    tbody.innerHTML = '';
+                    
+                    data.rows.forEach(row => addRowWithData(row));
+                    showNotification('✅ تم استرجاع المسودة السحابية بنجاح', 'success');
+                }
+            } catch (err) {
+                console.error('Error fetching draft:', err);
+            } finally {
+                isRestoring = false;
+            }
+        }
+
+        // Auto-fetch draft when user finishes typing their name and leaves the input
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('employeeNameInput');
+            if(nameInput) {
+                nameInput.addEventListener('change', () => {
+                    const name = nameInput.value.trim();
+                    if(name) {
+                        loadDraftFromCloud(name);
+                    }
+                });
+            }
+        });
+
         function loadSavedData() {
             try {
                 const saved = localStorage.getItem('securityFormData');
                 if (saved) {
                     const data = JSON.parse(saved);
-                    document.getElementById('employeeNameInput').value = data.employeeName || '';
+                    const name = data.employeeName || '';
+                    document.getElementById('employeeNameInput').value = name;
                     document.getElementById('governorateSelect').value = data.governorate || '';
                     document.getElementById('monthSelect').value = data.month || '';
                     updateHeader();
@@ -499,6 +542,11 @@
                         data.rows.forEach(row => addRowWithData(row));
                     } else {
                         addRow();
+                    }
+                    
+                    // After loading local, attempt to pull cloud version if name exists
+                    if (name.trim()) {
+                        loadDraftFromCloud(name.trim());
                     }
                 } else {
                     addRow();
@@ -510,6 +558,7 @@
         }
 
         function autoSave() {
+            if (isRestoring) return; // Prevent overwriting cloud data while restoring
             try {
                 const rows = collectCurrentData();
                 const data = {
@@ -519,10 +568,40 @@
                     rows: rows,
                     lastSaved: new Date().toISOString()
                 };
+                
+                // Local save
                 localStorage.setItem('securityFormData', JSON.stringify(data));
-                const indicator = document.getElementById('autoSaveIndicator');
-                indicator.classList.add('show');
-                setTimeout(() => indicator.classList.remove('show'), 2000);
+                
+                // Cloud save (only if there's actual task data to prevent wiping drafts accidentally)
+                const name = data.employeeName.trim();
+                const hasTaskData = rows.some(r => r.tasks && r.tasks.trim() !== '');
+                
+                if (name && hasTaskData) {
+                    if (autoSaveTimeout) clearTimeout(autoSaveTimeout);
+                    autoSaveTimeout = setTimeout(async () => {
+                        try {
+                            await fetch(`${FIREBASE_DRAFTS_URL}/${encodeURIComponent(name)}.json`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(data)
+                            });
+                            const indicator = document.getElementById('autoSaveIndicator');
+                            indicator.innerHTML = '✅ تم الحفظ سحابياً بنجاح';
+                            indicator.classList.add('show');
+                            setTimeout(() => {
+                                indicator.classList.remove('show');
+                                setTimeout(() => indicator.innerHTML = '✅ تم الحفظ تلقائياً في المتصفح', 500); // reset text
+                            }, 2000);
+                        } catch(err) {
+                            console.error('Cloud save failed', err);
+                        }
+                    }, 1500); // 1.5 seconds debounce
+                } else if (hasTaskData || name) {
+                    // Just show local save indicator if no name but has data, or name but no data
+                    const indicator = document.getElementById('autoSaveIndicator');
+                    indicator.classList.add('show');
+                    setTimeout(() => indicator.classList.remove('show'), 2000);
+                }
             } catch (e) {
                 console.error('Error saving data:', e);
             }
@@ -704,9 +783,9 @@
                         console.error('Error generating PDF receipt:', pdfErr);
                     }
 
-                    if (confirm('تم الحفظ بنجاح وتحميل نسختك الـ PDF. هل ترغب في تفريغ الاستمارة لبدء إدخال جديد؟')) {
-                        clearAllWithoutConfirm();
-                    }
+                    // Make it cumulative: keep the data and add a new row for the next entry
+                    showNotification('تم الإرسال بنجاح! يمكنك إضافة المزيد من الأنشطة في الصف الجديد بالأسفل.', 'success');
+                    addRow();
                 } else {
                     showNotification('❌ فشل حفظ البيانات: ' + (result.error || 'خطأ في الخادم'), 'error');
                 }
