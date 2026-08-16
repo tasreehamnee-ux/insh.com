@@ -515,14 +515,18 @@
             }
         }
 
-        // Auto-fetch draft when user finishes typing their name and leaves the input
+        // Auto-fetch draft when user finishes typing their name
+        let fetchDraftTimeout = null;
         document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('employeeNameInput');
             if(nameInput) {
-                nameInput.addEventListener('change', () => {
+                nameInput.addEventListener('input', () => {
                     const name = nameInput.value.trim();
                     if(name) {
-                        loadDraftFromCloud(name);
+                        if (fetchDraftTimeout) clearTimeout(fetchDraftTimeout);
+                        fetchDraftTimeout = setTimeout(() => {
+                            loadDraftFromCloud(name);
+                        }, 1000); // Wait 1 second after typing stops
                     }
                 });
             }
@@ -855,16 +859,16 @@
                         const globalIndex = page * ROWS_PER_PAGE + index;
                         tableHTML += `
                             <tr style="background:${bgColor};">
-                                <td style="border:1px solid #dee2e6;padding:7px 2px;text-align:center;font-size:12px;width:30px;word-wrap:break-word;">${globalIndex + 1}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:right;font-size:12px;width:180px;word-wrap:break-word;">${escapeHtml(row.tasks || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:70px;word-wrap:break-word;">${escapeHtml(row.employees || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:70px;word-wrap:break-word;">${escapeHtml(row.planned || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:80px;word-wrap:break-word;">${escapeHtml(row.completion || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:90px;word-wrap:break-word;">${escapeHtml(row.section || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:90px;word-wrap:break-word;">${escapeHtml(row.department || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:100px;word-wrap:break-word;">${escapeHtml(row.beneficiary || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:100px;word-wrap:break-word;">${escapeHtml(row.supporting || '')}</td>
-                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:12px;width:90px;word-wrap:break-word;">${escapeHtml(row.date || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px 2px;text-align:center;font-size:13px;font-weight:bold;width:30px;word-wrap:break-word;">${globalIndex + 1}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:right;font-size:13px;font-weight:bold;width:180px;word-wrap:break-word;">${escapeHtml(row.tasks || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:70px;word-wrap:break-word;">${escapeHtml(row.employees || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:70px;word-wrap:break-word;">${escapeHtml(row.planned || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:80px;word-wrap:break-word;">${escapeHtml(row.completion || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:90px;word-wrap:break-word;">${escapeHtml(row.section || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:90px;word-wrap:break-word;">${escapeHtml(row.department || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:100px;word-wrap:break-word;">${escapeHtml(row.beneficiary || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:100px;word-wrap:break-word;">${escapeHtml(row.supporting || '')}</td>
+                                <td style="border:1px solid #dee2e6;padding:7px;text-align:center;font-size:13px;font-weight:bold;width:90px;word-wrap:break-word;">${escapeHtml(row.date || '')}</td>
                             </tr>
                         `;
                     });
@@ -1015,7 +1019,10 @@
                 historyContainer.style.display = 'block';
                 
                 let html = `
-                    <h3 style="color:#1e3c72; margin-bottom:15px; font-size:18px; border-bottom:2px solid #e9ecef; padding-bottom:8px; text-align:right;">📋 سجل الإرسالات الفردية السابقة</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom:2px solid #e9ecef; margin-bottom:15px; padding-bottom:8px;">
+                        <h3 style="color:#1e3c72; font-size:18px; margin: 0;">📋 سجل الإرسالات الفردية السابقة</h3>
+                        <button class="btn btn-warning" onclick="restoreAllSubmissions()" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border:none; font-weight:bold; padding: 8px 15px;">📥 استعادة كافة الأنشطة إلى الجدول</button>
+                    </div>
                     <div style="overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; direction: rtl;">
                             <thead>
@@ -1081,11 +1088,8 @@
             const sub = mySubmissionsCache.find(s => s.id === subId);
             if (!sub) return;
             
-            if (confirm('هل أنت متأكد من استعادة هذه الاستمارة؟ سيؤدي ذلك لاستبدال محتويات الجدول الحالي بالبيانات القديمة.')) {
-                // Clear table body
-                document.getElementById('tableBody').innerHTML = '';
-                
-                // Populate rows
+            if (confirm('هل أنت متأكد من استعادة هذه الاستمارة؟ سيؤدي ذلك لإضافة محتوياتها إلى الجدول.')) {
+                // Populate rows without clearing the table
                 sub.rows.forEach(row => addRowWithData(row));
                 
                 // Set metadata
@@ -1093,7 +1097,41 @@
                 document.getElementById('monthSelect').value = sub.month || '';
                 updateHeader();
                 
-                showNotification('📥 تم استعادة بيانات الاستمارة بنجاح. يمكنك الآن تعديلها وإعادة إرسالها.', 'success');
+                showNotification('📥 تم استعادة بيانات الاستمارة بنجاح.', 'success');
+            }
+        }
+
+        function restoreAllSubmissions() {
+            if (!mySubmissionsCache || mySubmissionsCache.length === 0) return;
+            
+            if (confirm('هل أنت متأكد من استعادة كافة الأنشطة من جميع إرسالاتك السابقة؟ سيتم استبدال محتويات الجدول الحالي.')) {
+                document.getElementById('tableBody').innerHTML = '';
+                
+                let allRows = [];
+                // Process from oldest to newest so they appear in correct chronological order
+                [...mySubmissionsCache].reverse().forEach(s => {
+                    allRows = allRows.concat(s.rows);
+                });
+                
+                // Deduplicate based on task content
+                const uniqueRows = [];
+                const seenTasks = new Set();
+                for (const r of allRows) {
+                    if (r.tasks && !seenTasks.has(r.tasks.trim())) {
+                        seenTasks.add(r.tasks.trim());
+                        uniqueRows.push(r);
+                    }
+                }
+                
+                uniqueRows.forEach(row => addRowWithData(row));
+                
+                // Set metadata from the most recent submission
+                const lastSub = mySubmissionsCache[0];
+                document.getElementById('governorateSelect').value = lastSub.governorate || '';
+                document.getElementById('monthSelect').value = lastSub.month || '';
+                updateHeader();
+                
+                showNotification('📥 تم استعادة كافة الأنشطة التراكمية بنجاح.', 'success');
             }
         }
 

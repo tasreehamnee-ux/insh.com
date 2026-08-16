@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/dashboard.html', (req, res) => {
