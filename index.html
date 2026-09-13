@@ -537,7 +537,7 @@
                 const saved = localStorage.getItem('securityFormData');
                 if (saved) {
                     const data = JSON.parse(saved);
-                    const name = data.employeeName || '';
+                    const name = data.employeeName || localStorage.getItem('employeeName') || localStorage.getItem('userName') || '';
                     document.getElementById('employeeNameInput').value = name;
                     document.getElementById('governorateSelect').value = data.governorate || '';
                     document.getElementById('monthSelect').value = data.month || '';
@@ -1156,7 +1156,11 @@
         }
 
         // Listener for search
-        document.getElementById('employeeNameInput').addEventListener('input', () => {
+        document.getElementById('employeeNameInput').addEventListener('input', (e) => {
+            if (e.target.value.trim()) {
+                localStorage.setItem('employeeName', e.target.value.trim());
+                localStorage.setItem('userName', e.target.value.trim());
+            }
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(fetchEmployeeHistory, 500);
         });

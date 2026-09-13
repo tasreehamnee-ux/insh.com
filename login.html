@@ -77,9 +77,8 @@
             padding: 14px 20px;
             border: 2px solid #ddd;
             border-radius: 12px;
-            font-size: 18px;
+            font-size: 16px;
             text-align: center;
-            letter-spacing: 4px;
             transition: all 0.3s;
             background: white;
             color: #333;
@@ -131,48 +130,41 @@
 <body>
 
     <div class="login-card">
-        <div class="logo">🔒</div>
+        <div class="logo">👤</div>
         <h1>وحدة التصاريح الأمنية</h1>
-        <p>الرجاء إدخال رمز الدخول للوصول إلى النظام</p>
+        <p>الرجاء إدخال اسمك الكامل للدخول إلى النظام</p>
 
         <div id="errorBox" class="error-msg"></div>
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="passcode">رمز الدخول:</label>
-                <input type="password" id="passcode" maxlength="20" placeholder="••••••" required autocomplete="off">
+                <label for="userName">اسم الموظف / المستخدم:</label>
+                <input type="text" id="userName" placeholder="أدخل اسمك الكامل هنا..." required autocomplete="on">
             </div>
-            <button type="submit" class="btn">دخول للنظام</button>
+            <button type="submit" class="btn">دخول للنظام 🚀</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        const savedName = localStorage.getItem('employeeName') || localStorage.getItem('userName');
+        if (savedName) {
+            document.getElementById('userName').value = savedName;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const passcode = document.getElementById('passcode').value;
+            const userName = document.getElementById('userName').value.trim();
             const errorBox = document.getElementById('errorBox');
             
-            errorBox.style.display = 'none';
-
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ passcode })
-                });
-
-                const data = await response.json();
-                
-                if (response.ok && data.success) {
-                    window.location.href = data.redirect;
-                } else {
-                    errorBox.textContent = data.error || 'رمز الدخول غير صحيح';
-                    errorBox.style.display = 'block';
-                }
-            } catch (err) {
-                errorBox.textContent = 'حدث خطأ في الاتصال بالخادم';
+            if (!userName) {
+                errorBox.textContent = 'يرجى كتابة الاسم الكامل';
                 errorBox.style.display = 'block';
+                return;
             }
+
+            localStorage.setItem('employeeName', userName);
+            localStorage.setItem('userName', userName);
+            window.location.href = 'index.html';
         });
     </script>
 </body>
