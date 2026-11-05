@@ -151,20 +151,69 @@ app.post('/api/submit', async (req, res) => {
     }
 });
 
+// Month helpers
+const MONTH_NAMES = {
+    1: 'كانون الثاني', 2: 'شباط', 3: 'آذار', 4: 'نيسان',
+    5: 'أيار', 6: 'حزيران', 7: 'تموز', 8: 'آب',
+    9: 'أيلول', 10: 'تشرين الأول', 11: 'تشرين الثاني', 12: 'كانون الأول'
+};
+
+function getMonthNumber(val) {
+    if (!val && val !== 0) return null;
+    const str = String(val).trim();
+    if (!str) return null;
+    const num = parseInt(str, 10);
+    if (!isNaN(num) && num >= 1 && num <= 12) return num;
+    for (const [m, name] of Object.entries(MONTH_NAMES)) {
+        if (str.includes(name)) return parseInt(m, 10);
+    }
+    if (str.includes('عاشر')) return 10;
+    if (str.includes('تاسع')) return 9;
+    const match = str.match(/\b(1[0-2]|[1-9])\b/);
+    if (match) return parseInt(match[1], 10);
+    return null;
+}
+
+function getActivityMonthNumber(row, submissionMonth) {
+    if (row && row.date && typeof row.date === 'string') {
+        const trimmed = row.date.trim();
+        const ymd = trimmed.match(/^\d{4}[-/](\d{1,2})[-/]\d{1,2}$/);
+        if (ymd) {
+            const m = parseInt(ymd[1], 10);
+            if (m >= 1 && m <= 12) return m;
+        }
+        const dmy = trimmed.match(/^\d{1,2}[-/](\d{1,2})[-/]\d{4}$/);
+        if (dmy) {
+            const m = parseInt(dmy[1], 10);
+            if (m >= 1 && m <= 12) return m;
+        }
+        const parsed = new Date(trimmed);
+        if (!isNaN(parsed.getTime())) {
+            return parsed.getMonth() + 1;
+        }
+    }
+    return getMonthNumber(submissionMonth);
+}
+
 // Get Submissions (Admin only)
 app.get('/api/submissions', requireAdmin, (req, res) => {
     try {
         let submissions = db.getSubmissions();
         const { user, month, governorate } = req.query;
 
+        const targetMonthNum = getMonthNumber(month);
+
         if (user) {
             submissions = submissions.filter(s => s.userName === user);
         }
-        if (month) {
-            submissions = submissions.filter(s => s.month === month);
-        }
         if (governorate) {
             submissions = submissions.filter(s => s.governorate === governorate);
+        }
+        if (targetMonthNum) {
+            submissions = submissions.map(s => {
+                const filteredRows = (s.rows || []).filter(r => getActivityMonthNumber(r, s.month) === targetMonthNum);
+                return { ...s, rows: filteredRows };
+            }).filter(s => s.rows && s.rows.length > 0);
         }
 
         // Sort by date descending
@@ -216,15 +265,19 @@ app.delete('/api/submissions/:id', requireAdmin, async (req, res) => {
 function filterSubmissions(query) {
     let submissions = db.getSubmissions();
     const { user, month, governorate } = query;
+    const targetMonthNum = getMonthNumber(month);
 
     if (user) {
         submissions = submissions.filter(s => s.userName === user);
     }
-    if (month) {
-        submissions = submissions.filter(s => s.month === month);
-    }
     if (governorate) {
         submissions = submissions.filter(s => s.governorate === governorate);
+    }
+    if (targetMonthNum) {
+        submissions = submissions.map(s => {
+            const filteredRows = (s.rows || []).filter(r => getActivityMonthNumber(r, s.month) === targetMonthNum);
+            return { ...s, rows: filteredRows };
+        }).filter(s => s.rows && s.rows.length > 0);
     }
 
     submissions.sort((a, b) => new Date(a.submissionDate) - new Date(b.submissionDate));
@@ -247,15 +300,18 @@ app.get('/api/export/excel', requireAdmin, async (req, res) => {
         const govGroups = {};
         submissions.forEach(sub => {
             const gov = sub.governorate || 'غير محدد';
-            const m = sub.month || 'غير محدد';
-            if (!govGroups[gov]) {
-                govGroups[gov] = {};
-            }
-            if (!govGroups[gov][m]) {
-                govGroups[gov][m] = [];
-            }
             if (sub.rows && Array.isArray(sub.rows)) {
-                govGroups[gov][m] = govGroups[gov][m].concat(sub.rows);
+                sub.rows.forEach(row => {
+                    const rowMonthNum = getActivityMonthNumber(row, sub.month);
+                    const m = MONTH_NAMES[rowMonthNum] || sub.month || 'غير محدد';
+                    if (!govGroups[gov]) {
+                        govGroups[gov] = {};
+                    }
+                    if (!govGroups[gov][m]) {
+                        govGroups[gov][m] = [];
+                    }
+                    govGroups[gov][m].push(row);
+                });
             }
         });
 
@@ -477,11 +533,14 @@ app.get('/api/export/word', requireAdmin, async (req, res) => {
         const govGroups = {};
         submissions.forEach(sub => {
             const gov = sub.governorate || 'غير محدد';
-            const m = sub.month || 'غير محدد';
-            if (!govGroups[gov]) govGroups[gov] = {};
-            if (!govGroups[gov][m]) govGroups[gov][m] = [];
             if (sub.rows && Array.isArray(sub.rows)) {
-                govGroups[gov][m] = govGroups[gov][m].concat(sub.rows);
+                sub.rows.forEach(row => {
+                    const rowMonthNum = getActivityMonthNumber(row, sub.month);
+                    const m = MONTH_NAMES[rowMonthNum] || sub.month || 'غير محدد';
+                    if (!govGroups[gov]) govGroups[gov] = {};
+                    if (!govGroups[gov][m]) govGroups[gov][m] = [];
+                    govGroups[gov][m].push(row);
+                });
             }
         });
 
@@ -865,7 +924,7 @@ app.get('/api/export/employee/cumulative/word', async (req, res) => {
         const submissions = db.getSubmissions().filter(s => 
             s.userName.toLowerCase() === name.trim().toLowerCase() &&
             s.governorate === governorate &&
-            s.month === month
+            (s.month === month || getMonthNumber(s.month) === getMonthNumber(month))
         );
 
         if (submissions.length === 0) {
@@ -972,7 +1031,7 @@ app.get('/api/export/employee/cumulative/excel', async (req, res) => {
         const submissions = db.getSubmissions().filter(s => 
             s.userName.toLowerCase() === name.trim().toLowerCase() &&
             s.governorate === governorate &&
-            s.month === month
+            (s.month === month || getMonthNumber(s.month) === getMonthNumber(month))
         );
 
         if (submissions.length === 0) {

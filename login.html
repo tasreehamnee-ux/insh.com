@@ -77,8 +77,9 @@
             padding: 14px 20px;
             border: 2px solid #ddd;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 18px;
             text-align: center;
+            letter-spacing: 4px;
             transition: all 0.3s;
             background: white;
             color: #333;
@@ -130,41 +131,48 @@
 <body>
 
     <div class="login-card">
-        <div class="logo">👤</div>
+        <div class="logo">🔒</div>
         <h1>وحدة التصاريح الأمنية</h1>
-        <p>الرجاء إدخال اسمك الكامل للدخول إلى النظام</p>
+        <p>الرجاء إدخال رمز الدخول للوصول إلى النظام</p>
 
         <div id="errorBox" class="error-msg"></div>
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="userName">اسم الموظف / المستخدم:</label>
-                <input type="text" id="userName" placeholder="أدخل اسمك الكامل هنا..." required autocomplete="on">
+                <label for="passcode">رمز الدخول:</label>
+                <input type="password" id="passcode" maxlength="20" placeholder="••••••" required autocomplete="off">
             </div>
-            <button type="submit" class="btn">دخول للنظام 🚀</button>
+            <button type="submit" class="btn">دخول للنظام</button>
         </form>
     </div>
 
     <script>
-        const savedName = localStorage.getItem('employeeName') || localStorage.getItem('userName');
-        if (savedName) {
-            document.getElementById('userName').value = savedName;
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const userName = document.getElementById('userName').value.trim();
+            const passcode = document.getElementById('passcode').value;
             const errorBox = document.getElementById('errorBox');
             
-            if (!userName) {
-                errorBox.textContent = 'يرجى كتابة الاسم الكامل';
-                errorBox.style.display = 'block';
-                return;
-            }
+            errorBox.style.display = 'none';
 
-            localStorage.setItem('employeeName', userName);
-            localStorage.setItem('userName', userName);
-            window.location.href = 'index.html';
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ passcode })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    errorBox.textContent = data.error || 'رمز الدخول غير صحيح';
+                    errorBox.style.display = 'block';
+                }
+            } catch (err) {
+                errorBox.textContent = 'حدث خطأ في الاتصال بالخادم';
+                errorBox.style.display = 'block';
+            }
         });
     </script>
 </body>
