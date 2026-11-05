@@ -266,6 +266,38 @@
             min-width: 150px;
         }
 
+        .quick-month-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            align-items: center;
+        }
+        .month-pill {
+            background: #f1f5f9;
+            color: #1e3c72;
+            border: 1px solid #cbd5e1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .month-pill:hover {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+        }
+        .month-pill.active {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            border-color: #1e3c72;
+            box-shadow: 0 2px 6px rgba(30, 60, 114, 0.3);
+        }
+
         .filter-bar label {
             font-size: 12px;
             font-weight: 700;
@@ -518,20 +550,20 @@
                     </div>
                     <div class="filter-group">
                         <label>الشهر:</label>
-                        <select class="form-control" id="filterMonth" onchange="fetchSubmissions()">
-                            <option value="">كل الأشهر</option>
-                            <option value="كانون الثاني">كانون الثاني</option>
-                            <option value="شباط">شباط</option>
-                            <option value="آذار">آذار</option>
-                            <option value="نيسان">نيسان</option>
-                            <option value="أيار">أيار</option>
-                            <option value="حزيران">حزيران</option>
-                            <option value="تموز">تموز</option>
-                            <option value="آب">آب</option>
-                            <option value="أيلول">أيلول</option>
-                            <option value="تشرين الأول">تشرين الأول</option>
-                            <option value="تشرين الثاني">تشرين الثاني</option>
-                            <option value="كانون الأول">كانون الأول</option>
+                        <select class="form-control" id="filterMonth" onchange="onMonthDropdownChange()">
+                            <option value="">كل الأشهر (عرض الكل)</option>
+                            <option value="1">شهر 1 - كانون الثاني</option>
+                            <option value="2">شهر 2 - شباط</option>
+                            <option value="3">شهر 3 - آذار</option>
+                            <option value="4">شهر 4 - نيسان</option>
+                            <option value="5">شهر 5 - أيار</option>
+                            <option value="6">شهر 6 - حزيران</option>
+                            <option value="7">شهر 7 - تموز</option>
+                            <option value="8">شهر 8 - آب</option>
+                            <option value="9">شهر 9 - أيلول</option>
+                            <option value="10">شهر 10 - تشرين الأول</option>
+                            <option value="11">شهر 11 - تشرين الثاني</option>
+                            <option value="12">شهر 12 - كانون الأول</option>
                         </select>
                     </div>
                     <div class="filter-group">
@@ -555,9 +587,17 @@
                             <option value="كربلاء">كربلاء</option>
                         </select>
                     </div>
+                <div class="quick-month-bar">
+                    <span style="font-size: 13px; font-weight: bold; color: var(--primary);">⚡ تصفية سريعة للأشهر:</span>
+                    <button type="button" class="month-pill active" onclick="setMonthFilter('')">كل الأشهر</button>
+                    <button type="button" class="month-pill" onclick="setMonthFilter('10')">شهر 10 (تشرين الأول)</button>
+                    <button type="button" class="month-pill" onclick="setMonthFilter('9')">شهر 9 (أيلول)</button>
+                    <button type="button" class="month-pill" onclick="setMonthFilter('8')">شهر 8 (آب)</button>
+                    <button type="button" class="month-pill" onclick="setMonthFilter('7')">شهر 7 (تموز)</button>
+                    <button type="button" class="month-pill" onclick="setMonthFilter('6')">شهر 6 (حزيران)</button>
                 </div>
-
-                <!-- Cumulative Export Panel -->
+            </div>
+            <!-- Cumulative Export Panel -->
                 <div class="export-controls">
                     <div style="margin-left: auto; text-align: right; color: var(--gray-600); font-size: 13px;">
                         💡 التصدير التراكمي يقوم بحفظ كافة السجلات المصفاة (مبوبة تلقائياً حسب المحافظات والترويسة) في ملف Excel أو Word منسق.
@@ -579,6 +619,99 @@
         let allSubmissionsMaster = [];
         let filteredSubmissionsList = [];
 
+        // Month helpers
+        const MONTH_NAMES = {
+            1: 'كانون الثاني', 2: 'شباط', 3: 'آذار', 4: 'نيسان',
+            5: 'أيار', 6: 'حزيران', 7: 'تموز', 8: 'آب',
+            9: 'أيلول', 10: 'تشرين الأول', 11: 'تشرين الثاني', 12: 'كانون الأول'
+        };
+
+        function getMonthNumber(val) {
+            if (!val && val !== 0) return null;
+            const str = String(val).trim();
+            if (!str) return null;
+            const num = parseInt(str, 10);
+            if (!isNaN(num) && num >= 1 && num <= 12) return num;
+            for (const [m, name] of Object.entries(MONTH_NAMES)) {
+                if (str.includes(name)) return parseInt(m, 10);
+            }
+            if (str.includes('عاشر')) return 10;
+            if (str.includes('تاسع')) return 9;
+            const match = str.match(/\b(1[0-2]|[1-9])\b/);
+            if (match) return parseInt(match[1], 10);
+            return null;
+        }
+
+        function getActivityMonthNumber(row, submissionMonth) {
+            if (row && row.date && typeof row.date === 'string') {
+                const trimmed = row.date.trim();
+                const ymd = trimmed.match(/^\d{4}[-/](\d{1,2})[-/]\d{1,2}$/);
+                if (ymd) {
+                    const m = parseInt(ymd[1], 10);
+                    if (m >= 1 && m <= 12) return m;
+                }
+                const dmy = trimmed.match(/^\d{1,2}[-/](\d{1,2})[-/]\d{4}$/);
+                if (dmy) {
+                    const m = parseInt(dmy[1], 10);
+                    if (m >= 1 && m <= 12) return m;
+                }
+                const parsed = new Date(trimmed);
+                if (!isNaN(parsed.getTime())) {
+                    return parsed.getMonth() + 1;
+                }
+            }
+            return getMonthNumber(submissionMonth);
+        }
+
+        function syncMonthPills(val) {
+            const normalized = val ? String(getMonthNumber(val) || val) : '';
+            document.querySelectorAll('.month-pill').forEach(btn => {
+                const clickAttr = btn.getAttribute('onclick') || '';
+                const m = clickAttr.match(/'([^']*)'/);
+                const pillVal = m ? m[1] : '';
+                if (pillVal === normalized || (pillVal === '' && !normalized)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function setMonthFilter(val) {
+            document.getElementById('filterMonth').value = val;
+            syncMonthPills(val);
+            fetchSubmissions();
+        }
+
+        function onMonthDropdownChange() {
+            const val = document.getElementById('filterMonth').value;
+            syncMonthPills(val);
+            fetchSubmissions();
+        }
+
+        // Deduplicate rows helper
+        function deduplicateRows(rows) {
+            const seen = new Set();
+            return rows.filter(row => {
+                const key = [
+                    (row.tasks || '').trim(),
+                    (row.employees || '').toString().trim(),
+                    (row.planned || '').toString().trim(),
+                    (row.completion || '').trim(),
+                    (row.section || '').trim(),
+                    (row.department || '').trim(),
+                    (row.beneficiary || '').trim(),
+                    (row.supporting || '').trim(),
+                    (row.date || '').trim()
+                ].join('|||').toLowerCase();
+                if (seen.has(key)) {
+                    return false;
+                }
+                seen.add(key);
+                return true;
+            });
+        }
+
         // Check auth and session
         async function checkSession() {
             document.getElementById('adminName').textContent = 'مدير النظام';
@@ -595,20 +728,36 @@
             }, 4000);
         }
 
-        // Change Passcode Modal Controls Removed
-
         // Fetch Dashboard Data (Unfiltered master copy)
         async function loadDashboardData() {
             try {
-                const response = await fetch('/api/submissions');
-                allSubmissionsMaster = await response.json();
-                
-                if (!Array.isArray(allSubmissionsMaster)) {
-                    console.error('Expected array from submissions API, but got:', allSubmissionsMaster);
-                    document.getElementById('statsSubmissions').textContent = '0';
-                    return;
+                let data = null;
+                try {
+                    const response = await fetch('/api/submissions');
+                    if (response.ok) {
+                        data = await response.json();
+                    }
+                } catch (apiErr) {
+                    console.warn('API fetch failed, falling back to Firebase if available', apiErr);
                 }
-                
+
+                if (!data || !Array.isArray(data) || data.length === 0) {
+                    const FIREBASE_URL = 'https://inshetaa-default-rtdb.firebaseio.com/db/submissions.json';
+                    const fbRes = await fetch(FIREBASE_URL);
+                    const fbData = await fbRes.json();
+                    if (fbData) {
+                        data = [];
+                        for (const key in fbData) {
+                            if (fbData[key]) {
+                                data.push({ fbKey: key, ...fbData[key] });
+                            }
+                        }
+                    }
+                }
+
+                allSubmissionsMaster = Array.isArray(data) ? data : [];
+                allSubmissionsMaster.sort((a,b) => new Date(b.submissionDate || 0) - new Date(a.submissionDate || 0));
+
                 document.getElementById('statsSubmissions').textContent = allSubmissionsMaster.length;
 
                 // Process unique contributors
@@ -689,81 +838,76 @@
 
         async function fetchSubmissions() {
             const user = document.getElementById('filterUser').value;
-            const month = document.getElementById('filterMonth').value;
+            const monthVal = document.getElementById('filterMonth').value;
+            const targetMonthNum = getMonthNumber(monthVal);
             const governorate = document.getElementById('filterGov').value;
 
-            let query = `?user=${encodeURIComponent(user)}&month=${encodeURIComponent(month)}&governorate=${encodeURIComponent(governorate)}`;
-            
             try {
-                const response = await fetch(`/api/submissions${query}`);
-                filteredSubmissionsList = await response.json();
+                if (!allSubmissionsMaster || allSubmissionsMaster.length === 0) {
+                    await loadDashboardData();
+                }
 
                 const container = document.getElementById('groupedTablesContainer');
                 container.innerHTML = '';
 
-                if (!Array.isArray(filteredSubmissionsList)) {
-                    console.error('Expected array from submissions API, but got:', filteredSubmissionsList);
-                    container.innerHTML = '<div class="card" style="text-align:center; color:#888; padding:30px;">حدث خطأ في تحميل البيانات من الخادم أو انتهت صلاحية الجلسة. يرجى تحديث الصفحة.</div>';
-                    return;
-                }
-
-                if (filteredSubmissionsList.length === 0) {
-                    container.innerHTML = '<div class="card" style="text-align:center; color:#888; padding:30px;">لا توجد بيانات أنشطة مرسلة مطابقة لخيارات الفرز الحالية</div>';
-                    return;
-                }
-
-                // Group submissions by governorate and month
+                // Group activities by governorate and activity month
                 const groups = {};
-                filteredSubmissionsList.forEach(sub => {
-                    const key = `${sub.governorate || 'غير محدد'}_${sub.month || 'غير محدد'}`.replace(/\s+/g, '-');
-                    if (!groups[key]) {
-                        groups[key] = {
-                            governorate: sub.governorate || 'غير محدد',
-                            month: sub.month || 'غير محدد',
-                            contributors: [],
-                            rows: []
-                        };
-                    }
-                    if (!groups[key].contributors.some(c => c.id === sub.id)) {
-                        groups[key].contributors.push({
-                            id: sub.id,
-                            userName: sub.userName,
-                            date: sub.submissionDate
-                        });
-                    }
-                    if (sub.rows && Array.isArray(sub.rows)) {
-                        groups[key].rows = groups[key].rows.concat(sub.rows);
-                    }
+                let totalMatchingRows = 0;
+
+                allSubmissionsMaster.forEach(sub => {
+                    if (user && sub.userName !== user) return;
+                    if (governorate && sub.governorate !== governorate) return;
+
+                    const rows = sub.rows && Array.isArray(sub.rows) ? sub.rows : [];
+                    rows.forEach(row => {
+                        const rowMonthNum = getActivityMonthNumber(row, sub.month);
+                        // Filter by month: if targetMonthNum is selected, only matching activities pass
+                        if (targetMonthNum && rowMonthNum !== targetMonthNum) {
+                            return;
+                        }
+
+                        const gov = sub.governorate || 'غير محدد';
+                        const rowMonthName = MONTH_NAMES[rowMonthNum] || sub.month || 'غير محدد';
+                        const key = `${gov}_${rowMonthName}`.replace(/\s+/g, '-');
+
+                        if (!groups[key]) {
+                            groups[key] = {
+                                governorate: gov,
+                                month: rowMonthName,
+                                monthNum: rowMonthNum,
+                                contributors: [],
+                                rows: []
+                            };
+                        }
+
+                        if (!groups[key].contributors.some(c => c.id === sub.id || (c.fbKey && c.fbKey === sub.fbKey))) {
+                            groups[key].contributors.push({
+                                id: sub.id,
+                                fbKey: sub.fbKey,
+                                userName: sub.userName,
+                                date: sub.submissionDate
+                            });
+                        }
+
+                        groups[key].rows.push(row);
+                        totalMatchingRows++;
+                    });
                 });
 
-                // Deduplicate function
-                function deduplicateRows(rows) {
-                    const seen = new Set();
-                    return rows.filter(row => {
-                        const key = [
-                            (row.tasks || '').trim(),
-                            (row.employees || '').toString().trim(),
-                            (row.planned || '').toString().trim(),
-                            (row.completion || '').trim(),
-                            (row.section || '').trim(),
-                            (row.department || '').trim(),
-                            (row.beneficiary || '').trim(),
-                            (row.supporting || '').trim(),
-                            (row.date || '').trim()
-                        ].join('|||').toLowerCase();
-                        if (seen.has(key)) {
-                            return false;
-                        }
-                        seen.add(key);
-                        return true;
-                    });
+                if (totalMatchingRows === 0) {
+                    const monthLabel = targetMonthNum ? `شهر ${targetMonthNum} (${MONTH_NAMES[targetMonthNum] || ''})` : '';
+                    container.innerHTML = `<div class="card" style="text-align:center; color:#888; padding:30px;">
+                        لا توجد بيانات أنشطة مرسلة مطابقة لخيارات الفرز الحالية ${monthLabel ? `(${monthLabel})` : ''}
+                    </div>`;
+                    return;
                 }
 
                 // Render each group block
                 for (const key in groups) {
                     const group = groups[key];
                     const uniqueRows = deduplicateRows(group.rows);
-                    
+                    if (uniqueRows.length === 0) continue;
+
                     const block = document.createElement('div');
                     block.className = 'form-block-container';
                     const elementId = `block-${key}`;
@@ -775,7 +919,7 @@
                             <div class="banner-title">قسم التصاريح الأمنية</div>
                             <div class="banner-title" style="font-size: 16px; font-weight: bold; margin-top: 2px;">شعبة المتابعة</div>
                             <h2>استمارة الأنشطة الشهرية</h2>
-                            <div class="subtitle">محافظة (${group.governorate}) - لشهر (${group.month})</div>
+                            <div class="subtitle">محافظة (${group.governorate}) - لشهر (${group.month}${group.monthNum ? ` / شهر ${group.monthNum}` : ''})</div>
                         </div>
                         
                         <!-- Block Controls (no-pdf class prevents printing or canvas conversion) -->
@@ -785,7 +929,7 @@
                                 ${group.contributors.map(c => `
                                     <span style="background:white; border:1px solid #ccc; padding:3px 8px; border-radius:15px; display:inline-flex; align-items:center; gap:5px; margin:2px;">
                                         <span>${c.userName}</span>
-                                        <button onclick="deleteSubmission('${c.id}')" style="border:none; background:transparent; color:#e71d36; cursor:pointer; font-weight:bold; font-size:14px; padding:0 3px;" title="حذف هذه الاستمارة">🗑️</button>
+                                        <button onclick="deleteSubmission('${c.id || c.fbKey}')" style="border:none; background:transparent; color:#e71d36; cursor:pointer; font-weight:bold; font-size:14px; padding:0 3px;" title="حذف هذه الاستمارة">🗑️</button>
                                     </span>
                                 `).join('')}
                             </div>
@@ -842,19 +986,33 @@
             }
         }
 
-        // Delete single submission
-        async function deleteSubmission(id) {
+                async function deleteSubmission(id) {
             if (confirm('هل أنت متأكد من حذف هذه الاستمارة بالكامل؟ سيؤدي ذلك لحذف جميع الأنشطة المرفقة بها.')) {
                 try {
-                    const response = await fetch(`/api/submissions/${id}`, { method: 'DELETE' });
-                    if (response.ok) {
+                    let success = false;
+                    try {
+                        const response = await fetch(`/api/submissions/${id}`, { method: 'DELETE' });
+                        if (response.ok) success = true;
+                    } catch (_) {}
+
+                    if (!success) {
+                        const sub = allSubmissionsMaster.find(s => s.id === id || s.fbKey === id);
+                        const key = (sub && sub.fbKey) ? sub.fbKey : id;
+                        const FIREBASE_URL = `https://inshetaa-default-rtdb.firebaseio.com/db/submissions/${key}.json`;
+                        const response = await fetch(FIREBASE_URL, { method: 'DELETE' });
+                        if (response.ok) success = true;
+                    }
+
+                    if (success) {
                         showToast('تم حذف الاستمارة بنجاح');
+                        allSubmissionsMaster = [];
                         await loadDashboardData();
                         await fetchSubmissions();
                     } else {
                         showToast('خطأ في حذف الاستمارة', 'error');
                     }
                 } catch (e) {
+                    console.error(e);
                     showToast('خطأ في الاتصال بالخادم', 'error');
                 }
             }
